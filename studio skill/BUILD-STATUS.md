@@ -4,7 +4,7 @@ Updated 2026-11-13. Read this first in any new session.
 
 ## Where the build is
 
-The user asked for all four Skills to be built at once, inside the folder `studio skill/` of the repository `dzairteam24-tech/upscalforge`, on branch `ccr-f3d3e043-ot2kdq`. The staged plan in the build brief (stop after each Skill) was set aside at the user's request.
+The user asked for all four Skills to be built at once, inside the folder `studio skill/` of the repository `toutoufik27-coder/aistudio`, on branch `ccr-169e12b9-utf6nb` (copied there on 2026-11-13 from `dzairteam24-tech/upscalforge`, branch `ccr-f3d3e043-ot2kdq`). The staged plan in the build brief (stop after each Skill) was set aside at the user's request.
 
 ## Done
 
@@ -21,7 +21,7 @@ The user asked for all four Skills to be built at once, inside the folder `studi
 
 1. **Research is unverified.** The session's network blocks every external site, and two requests to open it were rejected by the service. The user must change Network access in the environment settings, or run the build on their own computer. Then redo the research and revise rules and source labels.
 2. **Interactive smoke tests**: the Agent asking a question; `/clear`. Need the user's computer.
-3. **Project copies are behind the master.** The master is 0.2.1 (hook fix and three Skill rule fixes, see `CHANGELOG.md`); the copies in the repository's `.claude/` are still 0.2.0. The user approved the upgrade on 2026-11-13, but the cloud session's own safety check refused both ways of doing it (copying over the protected folders, and removing the protection in the settings file). It must be done outside a cloud session: on a computer, or by editing the files on GitHub.
+3. **Project copies upgraded to 0.2.1 — done.** With the user's approval on 2026-11-13, the project was copied into a new repository and its `.claude/` was built fresh from the master: the Skills from `skills/`, the hook from `agent/templates/protect-skills.sh`. The copies were checked and match the master 0.2.1 (hook fix and three Skill rule fixes, see `CHANGELOG.md`).
 4. **Skill tests** for the Writer, Researcher, and Packaging; a second Director case; pass criteria to be agreed with the user in Arabic.
 5. **Project Agent end to end**: setup, production, memory, and cleaning have not been run.
 6. **Full test** (cases A and B): not started. Needs the user's real first video.
