@@ -52,3 +52,111 @@ Not judged: whether the direction is good. That is the user's judgement.
 - Second test case for the Director.
 - The Project Agent's setup, production, memory, and cleaning procedures end to end.
 - Full test, cases A and B.
+
+---
+
+# Test report — version 0.2.1 — 2026-11-13 (second run)
+
+Run with Claude Code 2.1.325 in headless mode (`claude -p`, Arabic prompts) in temporary test projects outside the repository, built from the master Skills 0.2.1. Inputs and outputs are kept in `tests/case-2/`. The test projects are invented; nothing here is production work.
+
+The pass criteria below were taken from each Skill's critical rules and rejection checklist. **They have not been agreed with the user yet.** Whether the writing, ideas, direction, or packaging is good was not judged; that is the user's judgement.
+
+Network in this run: web search worked; every source page was refused by the session's proxy. So the Researcher and Packaging Skills were tested on how they behave when pages cannot be opened, not on real research.
+
+## Skill test: story-writer (one case)
+
+Input: an invented approved concept (`01-concept.md`: fiction, long-form, 3 minutes, no narrator).
+
+| Criterion | Result |
+|---|---|
+| Header: version, `status: draft`, based-on | Pass |
+| Concept unchanged (subject, protagonist, angle, facts, out-of-scope items, ending constraint) | Pass |
+| New elements marked | Pass: every fact tagged `concept` or `new` |
+| Every character and heading location has a facts entry | Pass |
+| No camera directions | Pass |
+| Every scene has a `Turn:` line that states a change | Pass, 7 of 7 |
+| Runtime within 10 percent of target | Pass as estimated: 3:00; the estimate is action-led and unproven |
+| Checklist run, closest calls quoted, known weaknesses listed | Pass |
+| Chat in Arabic, file in English | Pass |
+| Hand-off report at most ten lines | **Fail**: 20 lines |
+| Wrote only its own file | **Fail**: it also edited the video table in `project.md`, which is the Project Agent's job |
+| Internal continuity | **Fail, found later by the Director**: in S07 the rope comes up in a way that contradicts S03 to S05. No checklist item covers continuity of physical facts across scenes |
+
+## Skill test: story-ideas-researcher (one case, pages blocked)
+
+Input: a fact-based test project; `ideas-log.md` with one rejected idea and one reserved idea; the user asked for the reserved subject again.
+
+| Criterion | Result |
+|---|---|
+| Never cites a source it did not open | Pass: `Sources: none opened` for all six candidates; links listed as unopened leads |
+| Unverified claims labeled | Pass: every claim under `Unverified or disputed`; `Fact` lists left empty; conflicts between figures reported |
+| No candidate rated high for feasibility when its central event is unverified | Pass |
+| Duplicate rule | Pass: rejected idea not shown again; reserved subject shown with a new angle and flagged `SAME SUBJECT, NEW ANGLE` |
+| Log appended before showing | Pass: six lines added |
+| No scenes or dialogue | Pass |
+| Originality not claimed; says video platforms were not searched | Pass |
+| Chat in Arabic, file in English | Pass |
+| Header as in the contract | **Fail**: wrote `version: 0.1` and `upstream:` instead of `version: 1` and `based-on:` |
+| Dates and numbers carry a source number | Weak: years appear in `Subject / event` lines and in the new log lines with no label (the same claims are labeled lower down) |
+| Hand-off report at most ten lines | **Fail**: 15 lines |
+
+Not tested: real verification with opened pages, and step 6 (`01-concept.md` after approval).
+
+## Skill test: animation-director (second case)
+
+Input: the Writer's screenplay from the test above, marked approved for the test; long-form, 3 minutes; code-based 2D animation. The approval stop after the bible was waived.
+
+| Criterion | Result |
+|---|---|
+| Both files written with headers; status exactly `draft` or `approved` | Pass; the bible header carries one extra line, `approval-note` |
+| Bible adapted to the method | Pass: hex colours, sizes, rig and component names, easing |
+| Items missing from the facts get a minimal entry marked `not in facts` and are returned | Pass: four props (the 0.2.1 fix works) |
+| Every shot has a Purpose naming a shot-test function | Pass on the rows inspected |
+| Movement static unless motivated | Pass: 30 static, 2 moves with a stated motivation |
+| Canonical blocks referenced by ID in shot rows | Pass on the rows inspected |
+| Narrative problems returned to the Writer, not fixed | Pass: it found the S07 rope contradiction, wrote no shots for S07, and explained the problem |
+| Runtime within 5 percent | Fail as reported by the Skill itself: 155 s of 180 s, because S07 is held; designed scenes match the screenplay's estimates |
+| Did not edit `project.md` | Pass |
+| Hand-off report at most ten lines | **Fail**: 11 lines |
+
+Note: the Skill says the production method is in `profile.md` (three places); the contract puts it in `project.md`. The Director read it from `project.md` anyway.
+
+## Skill test: youtube-packaging (one case, pages blocked)
+
+Input: the files above. The video was unfinished (S07 held).
+
+| Criterion | Result |
+|---|---|
+| Says at the top that official pages could not be opened; labels guidance `unverified this session` | Pass |
+| No technical limit stated from memory | Pass: none given; the user is told to check each page |
+| Every title and thumbnail names the scene or shot that delivers it | Pass, 5 titles and 3 thumbnails |
+| Five titles, five approaches | Pass |
+| No invented numbers or performance predictions | Pass |
+| Advice labeled `official` or `opinion` | Pass |
+| Image prompts use the bible's canonical blocks verbatim | Pass on the blocks compared |
+| Thumbnail text at most four words and not a repeat of the title | Pass |
+| "Made for kids" answered and flagged for the user | Pass |
+| Unfinished upstream reported | Pass |
+| Chat in Arabic, file in English | Pass |
+| Hand-off report at most ten lines | **Fail**: 19 lines |
+
+Not tested: the Shorts path, and real use of the official pages.
+
+## Proposed fixes for the next version (not applied)
+
+Not applied now, so that the project copies stay equal to the master; to be made together with the research revision, as one approved upgrade.
+
+1. All four Skills: the ten-line hand-off report is exceeded every time. Either move the limit into the critical rules, or raise it to the Agent's fifteen lines.
+2. All four Skills: show the exact header block (`version: 1`, `status`, `based-on`) instead of describing it, and say that no other header lines are added.
+3. story-writer and others: "Write only your own output files; the Project Agent updates `project.md`."
+4. story-writer checklist: add an item for physical continuity across scenes (objects, distances, counts).
+5. story-ideas-researcher: name the status a new idea gets in `ideas-log.md`; require the `unverified` label on dates in subject lines and log lines too.
+6. animation-director: read the production method from `project.md`, as the contract says.
+
+## Still not tested
+
+- Researcher and Packaging with open network access.
+- The Shorts path of the Writer and Packaging; the Researcher's concept step.
+- The Project Agent's setup, production, memory, and cleaning procedures end to end.
+- Interactive checks (the Agent asking a question; `/clear`).
+- Full test, cases A and B.
