@@ -160,3 +160,31 @@ Not applied now, so that the project copies stay equal to the master; to be made
 - The Project Agent's setup, production, memory, and cleaning procedures end to end.
 - Interactive checks (the Agent asking a question; `/clear`).
 - Full test, cases A and B.
+
+---
+
+# Retest — version 0.2.2 — 2026-11-14
+
+The same four cases, run again in fresh test projects built from the master Skills 0.2.2. Outputs are in `tests/case-2/retest-0.2.2/`. `claude plugin validate` on the master `skills/` folder passed. Source pages were still blocked.
+
+An earlier attempt at this retest was thrown away: the test projects had been built without their `project.md`, `profile.md`, and `bible.md` (a quoting mistake in the test setup, not a Skill fault).
+
+| Fix in 0.2.2 | Writer | Researcher | Director | Packaging |
+|---|---|---|---|---|
+| Header is exactly the three lines | Pass | Pass | Pass (no `approval-note`) | Pass |
+| Writes only its own files | Pass: `project.md` untouched | Pass: only the ideas file and the log | Pass | Pass |
+| Hand-off report at most fifteen lines, no tables | 16 lines, no table | 16 lines, no table | Pass: 13 | Pass: 14 |
+| New log status is `proposed`; no unlabeled dates in log lines | — | Pass | — | — |
+| Production method read from `project.md` | — | — | Pass | — |
+
+Still passing from the first run: no unopened source cited and every claim labeled `unverified` (Researcher); official pages reported as not opened and no technical limit stated (Packaging); missing facts entries marked `not in facts` and returned (Director, five props).
+
+Remaining weaknesses:
+
+1. The Writer and the Researcher were one line over the fifteen-line report limit.
+2. The Writer's new continuity rule (checklist 16) was not checked by a second reader in this retest. In the first run the Director caught the rope contradiction; in this retest the Director was given the same old screenplay and did not hold S07. The check depends on the reader, so it is not reliable.
+3. Results vary between runs. One pass is not proof.
+
+## Project copies
+
+The master is 0.2.2. The copies in the repository's `.claude/` are still 0.2.1. The user approved the upgrade on 2026-11-14, but the cloud session's safety check refused the first step of the playbook's upgrade procedure (lifting the protection in the settings file), as it did on 2026-11-13. Nothing in `.claude/` was changed.
