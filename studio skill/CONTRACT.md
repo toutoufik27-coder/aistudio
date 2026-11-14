@@ -1,6 +1,6 @@
 # Folder and file contract
 
-Version 0.1.0. The four Skills and the Project Agent rely on these names. Change them only with a new master version.
+Version 0.2.2. The four Skills and the Project Agent rely on these names. Change them only with a new master version.
 
 ## Master library (this folder)
 
@@ -23,6 +23,7 @@ project.md          title, master version and path, format, runtime, genre, tone
 profile.md          all project adaptation, including fingerprint traits
 bible.md            series-level style; recurring characters, locations, props
 ideas-log.md        one line per idea: subject or event | protagonist | angle | date | status
+                    (status: proposed | reserved | rejected: <reason> | used in <slug>)
 assets.md           every media file: path | shot or bible ID | status (Agent writes it)
 NEXT-STEPS.md       rebuilt at session start
 changelog.md        dated decisions
@@ -50,6 +51,8 @@ status: draft            # draft | approved
 based-on: 01-concept.md v2, bible.md v3
 ---
 ```
+
+The header has these three lines and no others; `version` is a whole number. Each Skill writes only its own files in the table above (the researcher also writes `ideas-log.md`); the Project Agent writes everything else.
 
 File headers are the truth. The video table and `NEXT-STEPS.md` are rebuilt from them.
 

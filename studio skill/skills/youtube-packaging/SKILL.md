@@ -14,9 +14,20 @@ description: Creates the YouTube packaging for a finished animated story. Produc
 5. Check current official YouTube Help pages in this session before writing. If you cannot open them, say so at the top of the file and label all guidance `unverified this session`.
 6. Do not change the story or the visuals. Thumbnail art uses the bible's characters and style by ID.
 7. One clear idea per thumbnail.
-8. The file starts with the header: version, status (exactly `draft` or `approved`, no other words), and upstream versions.
+8. The file starts with exactly this header and no other header lines (`version` is a whole number; `status` is exactly `draft` or `approved`):
+
+   ```
+   ---
+   version: 1
+   status: draft
+   based-on: 02-screenplay.md v1, 03-bible.md v1, 04-shots.md v1
+   ---
+   ```
+
 9. Speak to the user in the user's chat language. Write the file in English; write titles and description in the publishing language set in `profile.md`.
 10. Before saving, run [references/rejection-checklist.md](references/rejection-checklist.md) and quote every offending line.
+11. Write only `05-packaging.md`. Do not edit `project.md` or any other file; the Project Agent updates those.
+12. Hand-off report in chat: at most fifteen lines in total, counting every bullet and numbered item as a line; no tables. Details go in the file, not in the chat.
 
 ## Step 1: Find the promise
 
@@ -70,6 +81,6 @@ See [references/official-guidance.md](references/official-guidance.md) for the l
 
 ## Step 6: Self-check and hand-off
 
-Run the rejection checklist. Fix what fails, or list it under "Known weaknesses". Report in at most ten lines: the recommended pair, anything in the packaging the video might not deliver, and what the user must decide.
+Run the rejection checklist. Fix what fails, or list it under "Known weaknesses". Report in at most fifteen lines: the recommended pair, anything in the packaging the video might not deliver, and what the user must decide.
 
 Passing the checklist is not proof of quality. The final choice is the user's.

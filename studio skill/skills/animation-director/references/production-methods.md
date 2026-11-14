@@ -1,6 +1,6 @@
 # Production method notes
 
-Read this when `profile.md` names a production method. These are starting defaults. The project's own method research in its `references/` folder overrides them.
+Read this when `project.md` names a production method. These are starting defaults. The project's own method research in its `references/` folder overrides them.
 
 All points here are labeled proposals or come from unopened search summaries (see the master `research/animation-director.md`). Treat them as defaults to verify, not as facts.
 

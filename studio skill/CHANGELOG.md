@@ -1,5 +1,18 @@
 # Change log
 
+## 0.2.2 — 2026-11-13
+
+Fixes from the first round of Skill tests (`tests/REPORT.md`, second run).
+
+- All four Skills: the exact header block is shown, and no other header lines are allowed.
+- All four Skills: each writes only its own output files; `project.md` belongs to the Project Agent.
+- All four Skills: the chat hand-off report limit is fifteen lines (the Agent's limit) and is now a critical rule.
+- story-writer: physical facts stay consistent across scenes; new checklist item 16.
+- story-ideas-researcher: a new idea's log status is `proposed`; the status list is fixed; dates and numbers in subject and log lines need a source or the `unverified` label.
+- animation-director: the production method is read from `project.md`, as the contract says.
+- Contract: status list for `ideas-log.md`; header and file-ownership rule stated.
+- Research still unverified.
+
 ## 0.2.1 — 2026-11-13
 
 - Protection hook: plain read-only commands (`ls`, `cat`, `head`, `tail`, `wc`, `diff`, `grep`, `find`, `claude plugin validate`) on the protected folders are now allowed; anything with chaining, redirection, substitution, or a write option is still refused. Tested with 6 allowed and 14 refused cases.

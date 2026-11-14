@@ -21,6 +21,7 @@ Source labels: `[F#]` refers to a finding in the master library's `research/stor
 | 13 | Does an event happen by coincidence to solve the protagonist's problem? | A stranger happens to have the missing map | She trades her boat for the map in S02 | [proposal] |
 | 14 | In a fact-based story, is a dramatized element unmarked, or a fact different from the concept? | Invented quote presented as real | `(dramatized)` tag; or quote sourced in concept | [proposal] |
 | 15 | Does the estimated runtime miss the target by more than 10 percent? | Target 8 min, estimate 11 min | Target 8 min, estimate 8.5 min | [proposal] |
+| 16 | Does a physical fact in one scene contradict an earlier scene (an object's place, a length, a count, a distance)? | Rag tied 14 knots above the bucket in S03; in S07 it comes up 2 knots above the wet rope | The rope is traced scene by scene and S07 matches S03 | [proposal; from test case 2] |
 
 Verdict format:
 

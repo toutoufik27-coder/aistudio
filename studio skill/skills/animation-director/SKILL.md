@@ -12,9 +12,20 @@ description: Turns an approved screenplay into a video bible and a purposeful sh
 3. Every shot must pass the shot test below. A shot that fails is cut, merged, or redesigned, and the reason is noted.
 4. Never rewrite the story. List narrative problems under "Returned to Writer" and stop on those scenes.
 5. Reuse each canonical prompt block verbatim. Never paraphrase a character, location, or prop description in a shot row; reference its ID.
-6. Every output file starts with the header: version, status (exactly `draft` or `approved`, no other words), and the upstream versions it was based on.
+6. Every output file starts with exactly this header and no other header lines (`version` is a whole number; `status` is exactly `draft` or `approved`). Notes about approval go in the body, not the header:
+
+   ```
+   ---
+   version: 1
+   status: draft
+   based-on: 02-screenplay.md v1, bible.md v1
+   ---
+   ```
+
 7. Speak to the user in the user's chat language. Write all files in English.
 8. Before saving, run the rejection checklist in [references/rejection-checklist.md](references/rejection-checklist.md) and quote every offending shot.
+9. Write only `03-bible.md` and `04-shots.md`. Do not edit `project.md`, the series `bible.md`, or any other file; the Project Agent updates those.
+10. Hand-off report in chat: at most fifteen lines in total, counting every bullet and numbered item as a line; no tables. Details go in the file, not in the chat.
 
 ## Step 1: Video bible (`03-bible.md`)
 
@@ -30,10 +41,10 @@ Contents:
   - Wardrobe or state by scene ID (`S03: coat torn at left sleeve`)
   - Canonical prompt block: one paragraph, written once, reused verbatim
   - Reference image path under `media/` (empty until the user produces it)
-  - Tool settings, only where the production method in `profile.md` supports them (seed, reference weight, model, rig name)
+  - Tool settings, only where the production method in `project.md` supports them (seed, reference weight, model, rig name)
 - **Proposed promotions**: entries likely to recur in later videos. Only propose; the Project Agent applies them after the user approves.
 
-Adapt to the production method in `profile.md`. See [references/production-methods.md](references/production-methods.md) when the method is AI-generated images or video, code-based animation, or Blender.
+Adapt to the production method named in `project.md`, and to any method notes in `profile.md` and the project's `references/`. See [references/production-methods.md](references/production-methods.md) when the method is AI-generated images or video, code-based animation, or Blender.
 
 Stop here and ask for approval of the bible and its reference images before writing shots.
 
@@ -82,6 +93,6 @@ For the user's approval, write at the top of `04-shots.md`: each scene's purpose
 
 ## Step 5: Self-check and hand-off
 
-Run the rejection checklist. Fix what fails, or list it under "Known weaknesses". Then report in at most ten lines: files written, shot count, runtime, open questions, and anything returned to the Writer.
+Run the rejection checklist. Fix what fails, or list it under "Known weaknesses". Then report in at most fifteen lines: files written, shot count, runtime, open questions, and anything returned to the Writer.
 
 Passing the checklist is not proof of quality. Whether the direction has a point of view is the user's judgement.

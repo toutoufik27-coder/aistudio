@@ -11,7 +11,7 @@ Source labels: `[F#]` refers to a finding in the master library's `research/stor
 | 3 | Does a central claim rest on one source, without the `unverified` label? | `She saved 300 people [1]` | `She saved 300 people [1][4]`, or `unverified: single source` | [F1] |
 | 4 | Is a later retelling presented as a primary source? | Blog post quoting a diary, listed as "diary" | `secondary: quotes diary; original not found` | [F1] |
 | 5 | Is a fact mixed with invention without labels? | `He whispered goodbye to the ship` in the Fact list | Moved to `Dramatization needed` | [F2] |
-| 6 | Does a quote, date, or number appear with no source number? | `In 1887, 4,000 died.` | `In 1887, about 4,000 died [2]; [3] gives 2,500.` | [F3] |
+| 6 | Does a quote, date, or number appear with no source number and no `unverified` label, anywhere in the file or in the new `ideas-log.md` lines? | `In 1887, 4,000 died.` / `Subject / event: the 1887 flood` with no source opened | `In 1887, about 4,000 died [2]; [3] gives 2,500.` / `the flood (date unverified)` | [F3] |
 | 7 | Does the candidate claim originality as a fact? | `No one has ever told this story.` | `Search found two videos on the event; neither uses the daughter's view.` | [proposal] |
 | 8 | Is the same subject and angle already in `ideas-log.md`? | Shown again as new | Dropped; counted in the report | [proposal] |
 | 9 | Is a rating given without a reason, or all ratings "high"? | `Originality: high` | `Originality: medium — event is well covered; angle is not` | [proposal] |

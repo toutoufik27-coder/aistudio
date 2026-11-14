@@ -8,15 +8,26 @@ description: Finds, checks, and rates story concepts for animated videos from hi
 ## Critical rules (keep these even if the rest is lost)
 
 1. Read first: `project.md`, `profile.md`, and `ideas-log.md`. If any is missing, say so in one line and continue with sensible defaults.
-2. Append every new idea to `ideas-log.md` **before** showing it to the user. One line each: core subject or event, protagonist, angle, date, status.
+2. Append every new idea to `ideas-log.md` **before** showing it to the user. One line each: core subject or event, protagonist, angle, date, status. A new idea's status is `proposed`. The only statuses are `proposed`, `reserved`, `rejected: <reason>`, and `used in <slug>`.
 3. Duplicates: same subject and same angle as a logged entry is dropped silently. Same subject with a new angle is shown, flagged `SAME SUBJECT, NEW ANGLE`; the user decides.
-4. Never cite a source you did not open in this session. Never invent a source, quote, date, or number. If you could not verify a claim, label it `unverified`.
+4. Never cite a source you did not open in this session. Never invent a source, quote, date, or number. If you could not verify a claim, label it `unverified`. This includes dates, names, and numbers in `Subject / event` lines and in `ideas-log.md` lines: write them without figures, or add `(unverified)`.
 5. Separate fact from dramatization in every candidate.
 6. Do not write the story: no scenes, no dialogue, no script.
 7. A search cannot guarantee originality. Report similarity risks; never claim an idea is unique.
-8. Each output file starts with the header: version, status (exactly `draft` or `approved`, no other words), and upstream versions.
+8. Each output file starts with exactly this header and no other header lines (`version` is a whole number; `status` is exactly `draft` or `approved`):
+
+   ```
+   ---
+   version: 1
+   status: draft
+   based-on: ideas-log.md (date read)
+   ---
+   ```
+
 9. Speak to the user in the user's chat language. Write all files in English.
 10. Before saving, run [references/rejection-checklist.md](references/rejection-checklist.md) and quote every offending line.
+11. Write only `01-ideas.md`, `01-concept.md`, and `ideas-log.md`. Do not edit `project.md` or any other file; the Project Agent updates those.
+12. Hand-off report in chat: at most fifteen lines in total, counting every bullet and numbered item as a line; no tables. Details go in the file, not in the chat.
 
 ## Step 1: Frame the search
 
@@ -72,10 +83,10 @@ End with a recommendation: the one candidate you would make, and why, in three l
 
 ## Step 6: After approval, write `01-concept.md`
 
-Only for the candidate the user approves. Contents: header; subject, protagonist, angle; the central question the video answers; the fact list with sources; the permitted dramatizations; what is out of scope; similarity risks and the differentiator; format and target runtime. Update the idea's status in `ideas-log.md` to `used in <slug>`. Mark shown-but-not-chosen ideas `reserved` or `rejected: <reason>` as the user says.
+Only for the candidate the user approves. Contents: header; subject, protagonist, angle; the central question the video answers; the fact list with sources; the permitted dramatizations; what is out of scope; similarity risks and the differentiator; format and target runtime. Update the idea's status in `ideas-log.md` to `used in <slug>`. Mark shown-but-not-chosen ideas `reserved` or `rejected: <reason>` as the user says; until the user says, they stay `proposed`.
 
 ## Step 7: Hand-off
 
-Report in at most ten lines: candidates found, duplicates dropped, flagged repeats, unverified items, and the recommendation.
+Report in at most fifteen lines: candidates found, duplicates dropped, flagged repeats, unverified items, and the recommendation.
 
 Passing the checklist is not proof of quality. Whether an idea is worth making is the user's judgement.

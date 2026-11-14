@@ -13,9 +13,11 @@ description: Writes the screenplay for an animated story from an approved concep
 4. No camera decisions: no shot sizes, angles, lenses, or movement. Write what is seen and heard.
 5. Every scene must change something. A scene where nothing changes is cut or merged.
 6. Scenes carry stable IDs (`S01`, `S02`). Never renumber approved scenes; insert as `S03a`.
-7. The file starts with the header: version, status (exactly `draft` or `approved`, no other words), and the upstream versions it was based on.
+7. The file starts with exactly the header block shown in Step 3: `version` is a whole number, `status` is exactly `draft` or `approved`, `based-on` lists the upstream files and versions. No other header lines.
 8. Speak to the user in the user's chat language. Write all files in English, unless `profile.md` sets another script language.
 9. Before saving, run [references/rejection-checklist.md](references/rejection-checklist.md) and quote every offending line.
+10. Write only `02-screenplay.md`. Do not edit `project.md`, `NEXT-STEPS.md`, or any other file; the Project Agent updates those.
+11. Hand-off report in chat: at most fifteen lines in total, counting every bullet and numbered item as a line; no tables. Details go in the file, not in the chat.
 
 ## Step 1: Choose the structure
 
@@ -38,7 +40,16 @@ Design the conflict as cause and effect: each event happens because of the one b
 
 Sections, in order:
 
-1. **Header**
+1. **Header**, exactly this form:
+
+   ```
+   ---
+   version: 1
+   status: draft
+   based-on: 01-concept.md v1, bible.md v1
+   ---
+   ```
+
 2. **Logline**: one sentence with protagonist, want, obstacle, stakes.
 3. **Synopsis**: one paragraph, including the ending.
 4. **Structure note**: the structure chosen and why; estimated runtime.
@@ -69,9 +80,10 @@ Under each scene add one line: `Turn:` what is different at the end of the scene
 - Do not state the theme. Let the ending image carry it.
 - Endings may cost something. Do not resolve every thread or reconcile every character.
 - Give each speaking character a distinct way of talking: length of line, vocabulary, what they avoid.
+- Keep physical facts consistent across scenes: where an object is, how long, how many, how far, who holds it. Before saving, trace each prop and each number from its first scene to its last.
 
 ## Step 4: Self-check and hand-off
 
-Run the rejection checklist. Fix what fails, or list it under "Known weaknesses" at the end of the file. Report in at most ten lines: scene count, estimated runtime against target, dramatized elements added, and open questions.
+Run the rejection checklist. Fix what fails, or list it under "Known weaknesses" at the end of the file. Report in at most fifteen lines: scene count, estimated runtime against target, dramatized elements added, and open questions.
 
 Passing the checklist is not proof of quality. Whether the story has a point of view is the user's judgement.

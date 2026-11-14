@@ -1,6 +1,6 @@
 # Studio Skill: story production master library
 
-Version 0.2.0 (draft). Four general-purpose Skills for animated-story production, coordinated by a Project Agent.
+Version 0.2.2 (draft). Four general-purpose Skills for animated-story production, coordinated by a Project Agent.
 
 | Skill | Writes | Does |
 |---|---|---|
