@@ -1,30 +1,26 @@
 <title>صانع المنشورات</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@500;700;800;900&family=Noto+Kufi+Arabic:wght@500;700;900&family=Noto+Naskh+Arabic:wght@500;700&family=Tajawal:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almarai:wght@700;800&family=Cairo:wght@600;700;800;900&family=Changa:wght@700;800&family=Tajawal:wght@500;700;800&display=swap">
 <style>
-/* Layout: phone — preview, template picker, then form; wide — preview column + form column. */
+/* Layout: phone — preview then form; wide — preview column beside the form. */
 :root{
-  --bg:#eef0f4; --panel:#ffffff; --fg:#121621; --muted:#5d6577; --line:#d8dce6;
-  --accent:#b3121f; --accent-fg:#ffffff;
-  --display:"Noto Kufi Arabic","Cairo",system-ui,sans-serif; --body:"Tajawal","Cairo",system-ui,sans-serif;
+  --bg:#eef1f7; --panel:#ffffff; --fg:#121828; --muted:#5b6478; --line:#d7dcea;
+  --accent:#1240d8; --accent-fg:#ffffff;
+  --display:"Cairo",system-ui,sans-serif; --body:"Tajawal","Cairo",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0e1017; --panel:#171a24; --fg:#e9ebf1; --muted:#9aa1b2; --line:#2a2f3d; --accent:#ff5a63; --accent-fg:#0e1017; color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0e1017; --panel:#171a24; --fg:#e9ebf1; --muted:#9aa1b2; --line:#2a2f3d; --accent:#ff5a63; --accent-fg:#0e1017; color-scheme:dark}
+  --bg:#0d1120; --panel:#161c30; --fg:#e8ecf7; --muted:#9aa3ba; --line:#2a3350; --accent:#5b82ff; --accent-fg:#0d1120; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d1120; --panel:#161c30; --fg:#e8ecf7; --muted:#9aa3ba; --line:#2a3350; --accent:#5b82ff; --accent-fg:#0d1120; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;direction:rtl;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 40px}
-.wrap{max-width:1120px;margin:0 auto;display:grid;gap:20px}
-@media(min-width:920px){.wrap{grid-template-columns:minmax(0,1fr) 420px;align-items:start}.preview{position:sticky;top:16px}}
-h1{font-family:var(--display);font-weight:900;font-size:1.45rem;margin:0;text-wrap:balance}
+.wrap{max-width:1100px;margin:0 auto;display:grid;gap:20px}
+@media(min-width:900px){.wrap{grid-template-columns:minmax(0,1fr) 400px;align-items:start}.preview{position:sticky;top:16px}}
+h1{font-family:var(--display);font-weight:900;font-size:1.5rem;margin:0}
 .sub{color:var(--muted);margin:4px 0 0}
 .preview{display:grid;gap:12px;min-width:0}
-canvas{width:100%;max-width:100%;height:auto;border-radius:4px;box-shadow:0 12px 34px rgba(10,15,40,.28);background:#222}
-.tpls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.tpl{font:inherit;font-weight:700;font-size:.85rem;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:10px;padding:10px 4px;cursor:pointer;display:grid;gap:2px;justify-items:center}
-.tpl small{font-weight:500;color:var(--muted);font-size:.72rem}
-.tpl[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+canvas{width:100%;max-width:100%;height:auto;border-radius:4px;box-shadow:0 10px 30px rgba(10,20,60,.25);background:#223}
 .actions{display:flex;gap:10px;flex-wrap:wrap}
 button{font:inherit;font-weight:700;border:0;border-radius:10px;padding:12px 18px;cursor:pointer}
 .primary{background:var(--accent);color:var(--accent-fg);flex:1}
@@ -33,7 +29,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 .msg{color:var(--muted);font-size:.9rem;min-height:1.2em;margin:0}
 form{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:14px;min-width:0}
 fieldset{border:0;padding:0;margin:0;display:grid;gap:12px;min-width:0}
-legend{font-family:var(--display);font-weight:900;font-size:1rem;margin-bottom:6px}
+legend{font-family:var(--display);font-weight:800;font-size:1.05rem;margin-bottom:6px}
 label{display:grid;gap:5px;font-weight:700;font-size:.92rem;min-width:0}
 .hint{font-weight:500;color:var(--muted);font-size:.8rem}
 input[type=text],textarea,select{font:inherit;width:100%;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
@@ -41,6 +37,8 @@ textarea{min-height:110px;resize:vertical;line-height:1.6}
 input[type=file]{font:inherit;color:var(--muted);max-width:100%}
 input[type=range]{width:100%;accent-color:var(--accent)}
 .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.checks{display:flex;flex-wrap:wrap;gap:8px 14px}
+.checks label{display:flex;align-items:center;gap:6px;font-weight:500}
 .colors{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .sw{width:38px;height:38px;border-radius:50%;border:3px solid transparent;padding:0}
 .sw[aria-pressed="true"]{border-color:var(--fg)}
@@ -52,15 +50,9 @@ hr{border:0;border-top:1px solid var(--line);margin:2px 0}
   <section class="preview" aria-label="المعاينة">
     <div>
       <h1>صانع المنشورات</h1>
-      <p class="sub">اختر القالب، ضع الصورة والنص، ثم احفظ.</p>
+      <p class="sub">ضع الصورة والنص وشعارك، ثم احفظ الصورة.</p>
     </div>
     <canvas id="cv" width="1080" height="1080"></canvas>
-    <div class="tpls" id="tpls" role="group" aria-label="القالب">
-      <button type="button" class="tpl" data-t="front">الصفحة الأولى<small>عنوان رئيسي</small></button>
-      <button type="button" class="tpl" data-t="quote">تصريح<small>اقتباس على الصورة</small></button>
-      <button type="button" class="tpl" data-t="breaking">عاجل<small>خبر سريع</small></button>
-      <button type="button" class="tpl" data-t="card">البطاقة<small>القالب الأول</small></button>
-    </div>
     <div class="actions">
       <button class="primary" id="save" type="button">حفظ الصورة PNG</button>
       <button class="ghost" id="reset" type="button">إزالة الصور</button>
@@ -77,39 +69,51 @@ hr{border:0;border-top:1px solid var(--line);margin:2px 0}
       <div class="row">
         <label>تكبير <input type="range" id="zoom" min="1" max="3" step="0.01" value="1"></label>
         <label>أفقي <input type="range" id="px" min="0" max="1" step="0.01" value="0.5"></label>
-        <label>عمودي <input type="range" id="py" min="0" max="1" step="0.01" value="0.25"></label>
+        <label>عمودي <input type="range" id="py" min="0" max="1" step="0.01" value="0.2"></label>
       </div>
     </fieldset>
     <hr>
     <fieldset>
-      <legend>الخبر</legend>
+      <legend>النص</legend>
+      <label>الشريط الأزرق <span class="hint">القسم (الدولي، الوطني) أو اسم الشخصية</span>
+        <input type="text" id="tag" value="الدولي"></label>
+      <label>السطر الأحمر (اختياري)
+        <input type="text" id="kicker" value="عنوان بارز باللون الأحمر"></label>
+      <label>النص الأسود: العنوان أو التصريح
+        <textarea id="body">هنا يُكتب العنوان الرئيسي للمنشور ويُضبط حجمه تلقائيًا ليملأ البطاقة</textarea></label>
       <div class="row">
-        <label>القسم <input type="text" id="cat" value="دولي"></label>
-        <label>التاريخ <input type="text" id="date" value=""></label>
+        <label>الخط
+          <select id="font"><option value="Cairo|900">القاهرة (عريض)</option><option value="Almarai|800">المراعي</option><option value="Changa|800">تشانغا</option><option value="Tajawal|800">تجوّل</option></select></label>
+        <label>حجم الخط
+          <select id="size"><option value="1">تلقائي</option><option value="1.12">أكبر</option><option value="0.88">أصغر</option></select></label>
       </div>
-      <label>العنوان أو التصريح
-        <textarea id="body">اكتب هنا العنوان الرئيسي أو التصريح، ويُضبط حجم الخط تلقائيًا ليملأ المساحة بأفضل شكل</textarea></label>
-      <label>كلمات بارزة <span class="hint">كلمة أو عبارة من النص تظهر بلون القالب</span>
-        <input type="text" id="hl" value="العنوان الرئيسي"></label>
-      <div class="row">
-        <label>اسم الشخصية <input type="text" id="name" value="اسم الشخصية"></label>
-        <label>المنصب أو الصفة <input type="text" id="role" value="المنصب أو الصفة"></label>
-      </div>
-      <label>حجم الخط
-        <select id="size"><option value="auto">تلقائي</option><option value="1.15">أكبر</option><option value="0.85">أصغر</option></select></label>
+      <label>علامة الاقتباس
+        <select id="quote"><option value="1">تظهر</option><option value="0">مخفية</option></select></label>
     </fieldset>
     <hr>
     <fieldset>
       <legend>هوية صفحتك</legend>
-      <label>الشعار <span class="hint">صورة PNG بخلفية شفافة أفضل</span>
+      <label>الشعار <span class="hint">PNG بخلفية شفافة، يظهر أعلى اليمين</span>
         <input type="file" id="logo" accept="image/*"></label>
-      <label>اسم الصفحة <span class="hint">يظهر إن لم تضع شعارًا</span>
-        <input type="text" id="brand" value="صحيفتي"></label>
-      <label>الموقع أو الحساب
+      <label>اسم الصفحة <span class="hint">يظهر مكان الشعار إن لم تضعه، وكعلامة مائية في الأسفل</span>
+        <input type="text" id="brand" value="NEWS"></label>
+      <label>الشريط العلوي (اختياري)
+        <input type="text" id="banner" value=""></label>
+      <label>الموقع
         <input type="text" id="site" value="www.example.com"></label>
       <div>
-        <span style="font-weight:700;font-size:.92rem">لون القالب</span>
-        <div class="colors" id="colors" role="group" aria-label="لون القالب"></div>
+        <span style="font-weight:700;font-size:.92rem">أيقونات التواصل</span>
+        <div class="checks" style="margin-top:6px">
+          <label><input type="checkbox" id="i-fb" checked> فيسبوك</label>
+          <label><input type="checkbox" id="i-ig" checked> إنستغرام</label>
+          <label><input type="checkbox" id="i-yt" checked> يوتيوب</label>
+          <label><input type="checkbox" id="i-x" checked> X</label>
+          <label><input type="checkbox" id="i-tt" checked> تيك توك</label>
+        </div>
+      </div>
+      <div>
+        <span style="font-weight:700;font-size:.92rem">اللون</span>
+        <div class="colors" id="colors" role="group" aria-label="اللون"></div>
       </div>
       <label>المقاس
         <select id="ratio"><option value="1">مربع 1080×1080</option><option value="1.25">عمودي 1080×1350</option><option value="1.7778">ستوري 1080×1920</option></select></label>
@@ -120,29 +124,22 @@ hr{border:0;border-top:1px solid var(--line);margin:2px 0}
 <script>
 (() => {
 const $ = id => document.getElementById(id);
+const v = id => $(id).value.trim();
 const cv = $('cv'), ctx = cv.getContext('2d');
-const KUFI = '"Noto Kufi Arabic", Cairo, sans-serif', NASKH = '"Noto Naskh Arabic", Amiri, serif',
-      AMIRI = 'Amiri, "Noto Naskh Arabic", serif', CAIRO = 'Cairo, sans-serif';
+// [main, deep, light]
 const PALETTE = [
-  ['#b3121f','#7d0a13','أحمر'], ['#1240c9','#0a2a8f','أزرق'], ['#0b7a3b','#055027','أخضر'],
-  ['#c98a0a','#8a5c00','ذهبي'], ['#1b1f2a','#000000','أسود'], ['#6a2fc0','#431b80','بنفسجي']
+  ['#1446e0','#0a2aa6','#2f6bff','أزرق'], ['#0c8a43','#05582a','#22b35f','أخضر'], ['#c8141f','#7f0a12','#ef3a43','أحمر'],
+  ['#6a2fc0','#40177f','#8b55e6','بنفسجي'], ['#1d2230','#05070c','#3a4256','أسود']
 ];
-let accent = PALETTE[0], tpl = 'front', photo = null, logo = null;
-try { tpl = localStorage.getItem('pm-tpl') || 'front'; } catch(e){}
-
-try { $('date').value = new Date().toLocaleDateString('ar-DZ', {day:'numeric', month:'long', year:'numeric'}); } catch(e){ $('date').value = ''; }
+let C = PALETTE[0], photo = null, logo = null;
 
 PALETTE.forEach((p, i) => {
   const b = document.createElement('button');
   b.type = 'button'; b.className = 'sw'; b.style.background = p[0];
-  b.setAttribute('aria-label', p[2]); b.setAttribute('aria-pressed', i === 0);
-  b.onclick = () => { accent = p; [...$('colors').children].forEach(c => c.setAttribute('aria-pressed', c === b)); draw(); };
+  b.setAttribute('aria-label', p[3]); b.setAttribute('aria-pressed', i === 0);
+  b.onclick = () => { C = p; [...$('colors').children].forEach(c => c.setAttribute('aria-pressed', c === b)); draw(); };
   $('colors').appendChild(b);
 });
-const markTpl = () => [...$('tpls').children].forEach(b => b.setAttribute('aria-pressed', b.dataset.t === tpl));
-[...$('tpls').children].forEach(b => b.onclick = () => { tpl = b.dataset.t; try{localStorage.setItem('pm-tpl', tpl)}catch(e){} markTpl(); draw(); });
-markTpl();
-
 function loadImg(file, cb){
   if(!file) return;
   const r = new FileReader();
@@ -152,34 +149,29 @@ function loadImg(file, cb){
 $('photo').onchange = e => loadImg(e.target.files[0], im => { photo = im; $('zoom').value = 1; draw(); });
 $('logo').onchange = e => loadImg(e.target.files[0], im => { logo = im; draw(); });
 $('f').addEventListener('input', draw);
+$('f').addEventListener('change', draw);
 $('f').addEventListener('submit', e => e.preventDefault());
 $('reset').onclick = () => { photo = null; logo = null; $('photo').value=''; $('logo').value=''; draw(); };
 
-/* ---------- helpers ---------- */
-const v = id => $(id).value.trim();
 function rr(x,y,w,h,r){ ctx.beginPath(); ctx.roundRect(x,y,w,h,r); }
 
-function photoIn(x, y, w, h){
-  ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+function drawPhoto(W, h){
   if(!photo){
-    const g = ctx.createLinearGradient(x, y, x+w, y+h);
-    g.addColorStop(0,'#4a5470'); g.addColorStop(1,'#1d2233');
-    ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
-    ctx.fillStyle = 'rgba(255,255,255,.09)';
-    const cx = x + w*0.5, r = Math.min(w, h);
-    ctx.beginPath(); ctx.arc(cx, y + h*0.36, r*0.15, 0, Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(cx, y + h*0.98, r*0.32, r*0.38, 0, Math.PI, 0); ctx.fill();
-    ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.font = `700 30px ${CAIRO}`; ctx.textAlign = 'center'; ctx.direction = 'rtl';
-    ctx.fillText('ضع صورة من الأسفل', cx, y + h*0.12 + 30);
-  } else {
-    const s = Math.max(w/photo.width, h/photo.height) * +$('zoom').value;
-    const pw = photo.width*s, ph = photo.height*s;
-    ctx.drawImage(photo, x - (pw-w)*+$('px').value, y - (ph-h)*+$('py').value, pw, ph);
+    const g = ctx.createLinearGradient(0,0,W,h);
+    g.addColorStop(0,'#5d6a86'); g.addColorStop(1,'#272f45');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,h);
+    ctx.fillStyle = 'rgba(255,255,255,.10)';
+    ctx.beginPath(); ctx.arc(W*0.33, h*0.36, h*0.13, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(W*0.33, h*0.9, h*0.3, h*0.32, 0, Math.PI, 0); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.font = '700 32px Cairo'; ctx.textAlign='center'; ctx.direction='rtl';
+    ctx.fillText('ضع صورة الشخصية من الأسفل', W*0.5, h*0.18);
+    return;
   }
-  ctx.restore();
+  const s = Math.max(W/photo.width, h/photo.height) * +$('zoom').value;
+  const w = photo.width*s, hh = photo.height*s;
+  ctx.drawImage(photo, -(w-W)*+$('px').value, -(hh-h)*+$('py').value, w, hh);
 }
 
-// wrap into lines by measuring with the current font
 function wrap(text, maxW){
   const out = [];
   text.split('\n').forEach(par => {
@@ -188,219 +180,189 @@ function wrap(text, maxW){
       if(ctx.measureText(t).width > maxW && line){ out.push(line); line = w; } else line = t; });
     if(line) out.push(line);
   });
-  return out.length ? out : [''];
-}
-// biggest font size whose wrapped text fits the box
-function fit(text, weight, family, maxW, maxH, maxFs, minFs, lhr){
-  let fs = maxFs, lines;
-  for(; fs >= minFs; fs -= 2){ ctx.font = `${weight} ${fs}px ${family}`; lines = wrap(text, maxW); if(lines.length*fs*lhr <= maxH) break; }
-  fs = Math.max(fs, minFs);
-  const k = +$('size').value || 1;
-  if(k !== 1){ fs = Math.round(fs*k); ctx.font = `${weight} ${fs}px ${family}`; lines = wrap(text, maxW); }
-  return {fs, lines, lh: fs*lhr};
-}
-// draw a line in RTL; words inside the highlight phrase get the accent color
-function lineHL(line, xRight, y, base, hiCol, align){
-  const hl = v('hl');
-  ctx.direction = 'rtl';
-  const words = line.split(' ');
-  const hlWords = hl ? hl.split(/\s+/) : [];
-  const full = v('body').replace(/\s+/g,' ');
-  const start = hl ? full.indexOf(hl) : -1;
-  // mark words of this line that fall within the highlight span
-  let cursor = xRight;
-  const lineW = ctx.measureText(line).width, sp = ctx.measureText(' ').width;
-  if(align === 'center') cursor = xRight + lineW/2;
-  ctx.textAlign = 'right';
-  words.forEach(w => {
-    const isHi = start >= 0 && hlWords.includes(w);
-    ctx.fillStyle = isHi ? hiCol : base;
-    ctx.fillText(w, cursor, y);
-    cursor -= ctx.measureText(w).width + sp;
-  });
-}
-function brand(x, y, h, align, color){
-  if(logo){
-    const w = logo.width * h / logo.height;
-    ctx.drawImage(logo, align === 'left' ? x : align === 'center' ? x - w/2 : x - w, y, w, h);
-    return w;
-  }
-  const t = v('brand'); if(!t) return 0;
-  ctx.font = `900 ${h*0.78}px ${KUFI}`; ctx.fillStyle = color; ctx.direction = 'rtl'; ctx.textAlign = align;
-  ctx.fillText(t, x, y + h*0.8);
-  return ctx.measureText(t).width;
-}
-function site(x, y, size, color, align){
-  const s = v('site'); if(!s) return;
-  ctx.direction = 'ltr'; ctx.textAlign = align; ctx.fillStyle = color;
-  ctx.font = `700 ${size}px ${CAIRO}`; ctx.fillText(s, x, y); ctx.direction = 'rtl';
-}
-function nameRole(xRight, y, nameCol, roleCol, nfs){
-  const n = v('name'), r = v('role');
-  ctx.direction = 'rtl'; ctx.textAlign = 'right';
-  if(n){ ctx.font = `900 ${nfs}px ${KUFI}`; ctx.fillStyle = nameCol; ctx.fillText(n, xRight, y); }
-  if(r){ ctx.font = `500 ${Math.round(nfs*0.68)}px ${KUFI}`; ctx.fillStyle = roleCol; ctx.fillText(r, xRight, y + nfs*1.25); }
+  return out;
 }
 
-/* ---------- template 1: front page ---------- */
-function front(W, H, A, A2){
-  const INK = '#111318', PAPER = '#ffffff', M = 60;
-  ctx.fillStyle = PAPER; ctx.fillRect(0, 0, W, H);
-  // masthead
-  const mh = 128;
-  brand(W/2, 22, 76, 'center', INK);
-  ctx.fillStyle = INK; ctx.fillRect(M, mh, W-2*M, 4); ctx.fillRect(M, mh+9, W-2*M, 1.5);
-  ctx.font = `500 24px ${KUFI}`; ctx.direction = 'rtl'; ctx.textAlign = 'right'; ctx.fillStyle = '#555';
-  ctx.fillText(v('date'), W-M, mh+44);
-  site(M, mh+44, 24, '#555', 'left');
-  // photo
-  const py = mh + 64, ph = Math.round((H - py) * 0.52);
-  photoIn(M, py, W-2*M, ph);
-  // category flag on the photo edge
-  const cat = v('cat');
-  let ty = py + ph + 64;
-  if(cat){
-    ctx.font = `900 30px ${KUFI}`; const cw = ctx.measureText(cat).width + 44;
-    ctx.fillStyle = A; ctx.fillRect(W-M-cw, py+ph-26, cw, 52);
-    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(cat, W-M-cw/2, py+ph+10);
-    ty += 14;
-  }
-  // headline
-  const footH = (v('name')||v('role')) ? 130 : 40;
-  const box = H - ty - footH;
-  const {fs, lines, lh} = fit(v('body'), 900, KUFI, W-2*M, box, 78, 34, 1.42);
-  let y = ty + fs*0.95;
-  ctx.font = `900 ${fs}px ${KUFI}`;
-  lines.forEach(l => { lineHL(l, W-M, y, INK, A, 'right'); y += lh; });
-  // byline
-  if(v('name')||v('role')){
-    const by = H - 104;
-    ctx.fillStyle = '#d5d7dd'; ctx.fillRect(M, by-46, W-2*M, 2);
-    ctx.fillStyle = A; ctx.fillRect(W-M-6, by-26, 6, 70);
-    nameRole(W-M-22, by+4, INK, '#666b78', 34);
-  }
+// one heavy quote mark: rounded head with a tail sweeping down-left
+function comma(x, y, s, fill){
+  ctx.fillStyle = fill;
+  ctx.beginPath();
+  ctx.moveTo(x + s*0.18, y);
+  ctx.lineTo(x + s*0.78, y);
+  ctx.quadraticCurveTo(x + s*0.92, y, x + s*0.9, y + s*0.16);
+  ctx.lineTo(x + s*0.82, y + s*0.62);
+  ctx.quadraticCurveTo(x + s*0.72, y + s*1.02, x + s*0.18, y + s*1.18);
+  ctx.quadraticCurveTo(x + s*0.04, y + s*1.2, x + s*0.12, y + s*1.06);
+  ctx.quadraticCurveTo(x + s*0.4, y + s*0.86, x + s*0.42, y + s*0.62);
+  ctx.lineTo(x + s*0.1, y + s*0.62);
+  ctx.quadraticCurveTo(x, y + s*0.62, x + s*0.01, y + s*0.5);
+  ctx.lineTo(x + s*0.06, y + s*0.12);
+  ctx.quadraticCurveTo(x + s*0.08, y, x + s*0.18, y);
+  ctx.fill();
 }
-
-/* ---------- template 2: quote on photo ---------- */
-function quote(W, H, A){
-  photoIn(0, 0, W, H);
-  const g = ctx.createLinearGradient(0, H*0.25, 0, H);
-  g.addColorStop(0, 'rgba(8,9,14,0)'); g.addColorStop(0.45, 'rgba(8,9,14,.82)'); g.addColorStop(1, 'rgba(8,9,14,.97)');
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  const top = ctx.createLinearGradient(0, 0, 0, 200);
-  top.addColorStop(0, 'rgba(0,0,0,.45)'); top.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = top; ctx.fillRect(0, 0, W, 200);
-  const M = 70;
-  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.4)'; ctx.shadowBlur = 10;
-  brand(M, 48, 64, 'left', '#fff'); ctx.restore();
-  const cat = v('cat');
-  if(cat){
-    ctx.font = `900 28px ${KUFI}`; ctx.direction='rtl'; const cw = ctx.measureText(cat).width + 46;
-    ctx.fillStyle = A; rr(W-M-cw, 52, cw, 54, 27); ctx.fill();
-    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(cat, W-M-cw/2, 89);
-  }
-  // text block anchored to bottom
-  const nameH = (v('name')||v('role')) ? 140 : 0;
-  const bottom = H - 110 - nameH;
-  const maxH = Math.min(H*0.42, bottom - H*0.42);
-  const {fs, lines, lh} = fit(v('body'), 700, NASKH, W-2*M, maxH, 70, 32, 1.6);
-  const textTop = bottom - lines.length*lh;
-  // giant quotation mark
-  ctx.font = `700 ${Math.round(fs*4)}px ${AMIRI}`; ctx.fillStyle = A; ctx.textAlign = 'right'; ctx.direction = 'rtl';
-  ctx.fillText('“', W-M+10, textTop + fs*1.2);
-  let y = textTop + fs*1.55;
-  ctx.font = `700 ${fs}px ${NASKH}`;
-  lines.forEach(l => { lineHL(l, W-M, y, '#fff', '#ffd25e', 'right'); y += lh; });
-  if(nameH){
-    const ny = bottom + 70;
-    ctx.fillStyle = A; ctx.fillRect(W-M-7, ny-42, 7, 92);
-    nameRole(W-M-26, ny, '#fff', 'rgba(255,255,255,.7)', 38);
-  }
-  ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.fillRect(M, H-74, W-2*M, 1.5);
-  site(M, H-34, 24, 'rgba(255,255,255,.75)', 'left');
-  ctx.font = `500 24px ${KUFI}`; ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.textAlign='right'; ctx.direction='rtl';
-  ctx.fillText(v('date'), W-M, H-34);
-}
-
-/* ---------- template 3: breaking ---------- */
-function breaking(W, H, A, A2){
-  const split = Math.round(H*0.5);
-  photoIn(0, 0, W, split + 40);
-  const g = ctx.createLinearGradient(0, split, 0, H);
-  g.addColorStop(0, A); g.addColorStop(1, A2);
-  ctx.fillStyle = g;
-  ctx.beginPath(); ctx.moveTo(0, split+40); ctx.lineTo(W, split-10); ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.fill();
-  // brand chip top-left
-  ctx.save(); ctx.shadowColor='rgba(0,0,0,.45)'; ctx.shadowBlur=12; brand(56, 44, 60, 'left', '#fff'); ctx.restore();
-  const M = 64;
-  // label
-  const cat = v('cat') || 'عاجل';
-  ctx.font = `900 40px ${KUFI}`; ctx.direction = 'rtl';
-  const cw = ctx.measureText(cat).width + 70, cy = split - 54;
-  ctx.fillStyle = '#fff'; ctx.fillRect(W-M-cw, cy, cw, 70);
-  ctx.fillStyle = A; ctx.beginPath(); ctx.arc(W-M-28, cy+35, 10, 0, Math.PI*2); ctx.fill();
-  ctx.fillStyle = '#111'; ctx.textAlign = 'right'; ctx.fillText(cat, W-M-48, cy+50);
-  // headline
-  const top = split + 70, footH = 120 + ((v('name')||v('role')) ? 0 : -40);
-  const {fs, lines, lh} = fit(v('body'), 900, KUFI, W-2*M, H - top - footH, 76, 34, 1.42);
-  let y = top + fs*0.95;
-  ctx.font = `900 ${fs}px ${KUFI}`;
-  lines.forEach(l => { lineHL(l, W-M, y, '#fff', '#ffd25e', 'right'); y += lh; });
-  // footer
-  ctx.fillStyle = 'rgba(255,255,255,.25)'; ctx.fillRect(M, H-84, W-2*M, 1.5);
-  const nm = [v('name'), v('role')].filter(Boolean).join(' · ');
-  ctx.font = `700 26px ${KUFI}`; ctx.fillStyle = 'rgba(255,255,255,.9)'; ctx.textAlign = 'right';
-  ctx.fillText(nm || v('date'), W-M, H-38);
-  site(M, H-38, 26, 'rgba(255,255,255,.85)', 'left');
-}
-
-/* ---------- template 4: the first card style ---------- */
-function card(W, H, A, A2){
-  const bandTop = H - Math.round(H*0.42);
-  photoIn(0, 0, W, bandTop + 120);
-  const g = ctx.createLinearGradient(0, bandTop, 0, H);
-  g.addColorStop(0, A); g.addColorStop(1, A2);
-  ctx.fillStyle = g; ctx.fillRect(0, bandTop+60, W, H-bandTop-60);
-  const fade = ctx.createLinearGradient(0, bandTop-60, 0, bandTop+70);
-  fade.addColorStop(0, 'rgba(0,0,0,0)'); fade.addColorStop(1, A);
-  ctx.fillStyle = fade; ctx.fillRect(0, bandTop-60, W, 130);
-  ctx.save(); ctx.globalAlpha = .07; ctx.fillStyle = '#fff';
-  for(let x=-200;x<W;x+=180){ ctx.beginPath(); ctx.moveTo(x,H); ctx.lineTo(x+90,H); ctx.lineTo(x+330,bandTop+80); ctx.lineTo(x+240,bandTop+80); ctx.fill(); }
+function quoteMarks(x, y, s){
+  const g = ctx.createLinearGradient(x, y, x, y + s*1.2);
+  g.addColorStop(0, C[2]); g.addColorStop(1, C[1]);
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 4;
+  comma(x, y, s, g); comma(x + s*0.92, y, s, g);
   ctx.restore();
-  ctx.save(); ctx.shadowColor='rgba(0,0,0,.4)'; ctx.shadowBlur=12; brand(44, 40, 64, 'left', '#fff'); ctx.restore();
-
-  const cx = 70, cw = W-140, cy = bandTop;
-  const avail = H - cy - 260;
-  const {fs, lines, lh} = fit(v('body'), 800, CAIRO, cw-110, avail, 66, 30, 1.55);
-  const ch = Math.max(200, lines.length*lh + 90);
-  ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 4; rr(cx-38, cy+60, cw+10, ch+40, 26); ctx.stroke();
-  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 8;
-  ctx.fillStyle = '#fff'; rr(cx, cy, cw, ch, 18); ctx.fill(); ctx.restore();
-  const tag = v('name') || v('cat');
-  if(tag){
-    ctx.font = `800 42px ${CAIRO}`; ctx.direction='rtl'; const tw = ctx.measureText(tag).width + 110;
-    const tx = cx + cw - tw - 10, ty = cy - 74;
-    ctx.save(); ctx.shadowColor='rgba(0,0,0,.25)'; ctx.shadowBlur=12;
-    const tg = ctx.createLinearGradient(tx,0,tx+tw,0); tg.addColorStop(0,A2); tg.addColorStop(1,A);
-    ctx.fillStyle = tg; ctx.beginPath();
-    ctx.moveTo(tx, ty+84); ctx.lineTo(tx+tw+40, ty+84); ctx.lineTo(tx+tw+10, ty+10);
-    ctx.quadraticCurveTo(tx+tw, ty, tx+tw-16, ty); ctx.lineTo(tx+30, ty); ctx.quadraticCurveTo(tx+10, ty, tx+6, ty+16); ctx.closePath(); ctx.fill();
-    ctx.restore();
-    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(tag, tx + tw/2 + 12, ty + 56);
-  }
-  let y = cy + (ch - lines.length*lh)/2 + fs*1.05;
-  ctx.font = `800 ${fs}px ${CAIRO}`;
-  lines.forEach(l => { const w = ctx.measureText(l).width; lineHL(l, cx + cw/2 + w/2, y, '#111', A, 'right'); y += lh; });
-  ctx.font = `700 210px ${AMIRI}`; ctx.fillStyle = A; ctx.textAlign = 'right'; ctx.fillText('”', cx + cw + 30, cy + ch + 110);
-  site(W/2, Math.min(Math.max(cy + ch + 150, H - 90), H-50), 44, '#fff', 'center');
 }
+
+// social icons, white, centered row
+function icons(cx, cy, s){
+  const list = [['i-fb',fb],['i-ig',ig],['i-yt',yt],['i-x',xx],['i-tt',tt]].filter(([id]) => $(id).checked);
+  const gap = s*0.9, total = list.length*s + (list.length-1)*gap;
+  let x = cx - total/2;
+  ctx.direction = 'ltr';
+  list.forEach(([, f]) => { f(x, cy - s/2, s); x += s + gap; });
+  ctx.direction = 'rtl';
+}
+function fb(x,y,s){ ctx.fillStyle='#fff'; rr(x,y,s,s,s*0.22); ctx.fill();
+  ctx.fillStyle=C[0]; ctx.font=`900 ${s*0.95}px Arial, sans-serif`; ctx.textAlign='center'; ctx.fillText('f', x+s*0.58, y+s*1.02); }
+function ig(x,y,s){ ctx.strokeStyle='#fff'; ctx.lineWidth=s*0.11; rr(x+s*0.06,y+s*0.06,s*0.88,s*0.88,s*0.26); ctx.stroke();
+  ctx.beginPath(); ctx.arc(x+s/2,y+s/2,s*0.2,0,7); ctx.stroke(); ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(x+s*0.74,y+s*0.26,s*0.06,0,7); ctx.fill(); }
+function yt(x,y,s){ ctx.fillStyle='#fff'; rr(x-s*0.1,y+s*0.14,s*1.2,s*0.74,s*0.2); ctx.fill();
+  ctx.fillStyle=C[0]; ctx.beginPath(); ctx.moveTo(x+s*0.4,y+s*0.3); ctx.lineTo(x+s*0.72,y+s*0.51); ctx.lineTo(x+s*0.4,y+s*0.72); ctx.fill(); }
+function xx(x,y,s){ ctx.strokeStyle='#fff'; ctx.lineCap='round';
+  ctx.lineWidth=s*0.1; ctx.beginPath(); ctx.moveTo(x+s*0.86,y+s*0.06); ctx.lineTo(x+s*0.14,y+s*0.94); ctx.stroke();
+  ctx.lineWidth=s*0.2; ctx.beginPath(); ctx.moveTo(x+s*0.14,y+s*0.1); ctx.lineTo(x+s*0.86,y+s*0.9); ctx.stroke(); ctx.lineCap='butt'; }
+function tt(x,y,s){ ctx.strokeStyle='#fff'; ctx.lineWidth=s*0.15; ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(x+s*0.52,y+s*0.08); ctx.lineTo(x+s*0.52,y+s*0.7); ctx.stroke();
+  ctx.beginPath(); ctx.arc(x+s*0.36,y+s*0.7,s*0.17,0,7); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x+s*0.52,y+s*0.1); ctx.quadraticCurveTo(x+s*0.6,y+s*0.34,x+s*0.86,y+s*0.36); ctx.stroke(); ctx.lineCap='butt'; }
 
 function draw(){
   const W = 1080, H = Math.round(1080 * +$('ratio').value);
   if(cv.height !== H) cv.height = H;
   ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,W,H); ctx.direction = 'rtl';
-  const [A, A2] = accent;
-  ({front, quote, breaking, card})[tpl](W, H, A, A2);
+  const [A, A2, AL] = C;
+  const [fam, wt] = $('font').value.split('|');
+
+  // ---- layout anchors (square: card bottom at ~80% like the reference posts)
+  const footTop = H - 215;
+  const cardX = 84, cardW = 890, cardBottom = footTop - 14;
+  const maxW = cardW - 120;
+
+  // ---- text fitting
+  const body = v('body'), kick = v('kicker');
+  const maxBlock = Math.min(H*0.34, 420);
+  let fs = 66, lines = [];
+  for(; fs >= 30; fs -= 2){
+    ctx.font = `${wt} ${fs}px ${fam}`; lines = wrap(body, maxW);
+    const kh = kick ? fs*1.45 : 0;
+    if(lines.length*fs*1.45 + kh <= maxBlock) break;
+  }
+  fs = Math.round(Math.max(fs, 30) * +$('size').value);
+  ctx.font = `${wt} ${fs}px ${fam}`; lines = wrap(body, maxW);
+  const lh = fs*1.45;
+  ctx.font = `${wt} ${fs}px ${fam}`;
+  let kfs = fs; while(kick && kfs > 26){ ctx.font = `${wt} ${kfs}px ${fam}`; if(ctx.measureText(kick).width <= maxW) break; kfs -= 2; }
+  const textH = lines.length*lh + (kick ? kfs*1.45 : 0);
+  const cardH = Math.max(230, textH + 100);
+  const cardY = cardBottom - cardH;
+
+  // ---- photo + blend into the colored band
+  const photoH = cardY + 120;
+  drawPhoto(W, photoH);
+  const bandY = cardY - 40;
+  const fade = ctx.createLinearGradient(0, bandY - 170, 0, bandY + 90);
+  fade.addColorStop(0, 'rgba(0,0,0,0)'); fade.addColorStop(0.55, A + '66'); fade.addColorStop(1, A);
+  ctx.fillStyle = fade; ctx.fillRect(0, bandY - 170, W, 260);
+  const band = ctx.createLinearGradient(0, bandY + 90, 0, H);
+  band.addColorStop(0, A); band.addColorStop(0.6, A); band.addColorStop(1, A2);
+  ctx.fillStyle = band; ctx.fillRect(0, bandY + 89, W, H - bandY);
+  // large soft slanted panels in the band
+  ctx.save(); ctx.globalAlpha = 0.08; ctx.fillStyle = '#fff';
+  const sp = 230;
+  for(let x = -300; x < W + 200; x += sp){
+    ctx.beginPath(); ctx.moveTo(x, H); ctx.lineTo(x + 120, H); ctx.lineTo(x + 330, bandY + 40); ctx.lineTo(x + 210, bandY + 40); ctx.fill();
+  }
+  ctx.restore();
+  // faint watermark of the page name
+  const brand = v('brand');
+  if(brand){
+    ctx.save(); ctx.globalAlpha = 0.09; ctx.fillStyle = '#fff'; ctx.direction = 'ltr'; ctx.textAlign = 'right';
+    ctx.font = `italic 900 150px ${fam}, Arial, sans-serif`;
+    ctx.fillText(brand, W - 70, H - 105); ctx.restore(); ctx.direction = 'rtl';
+  }
+
+  // ---- logo top-right (or page name)
+  if(logo){
+    const lh2 = 175, lw = Math.min(300, logo.width * lh2 / logo.height), lhh = lw * logo.height / logo.width;
+    ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.35)'; ctx.shadowBlur = 14;
+    ctx.drawImage(logo, W - 34 - lw, 30, lw, lhh); ctx.restore();
+  } else if(brand){
+    ctx.save(); ctx.font = `italic 900 76px ${fam}, Arial, sans-serif`; ctx.direction = 'ltr'; ctx.textAlign = 'right';
+    ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 14;
+    const g = ctx.createLinearGradient(0, 40, 0, 130); g.addColorStop(0, '#ffffff'); g.addColorStop(1, '#c9ced8');
+    ctx.fillStyle = g; ctx.globalAlpha = 0.92; ctx.fillText(brand, W - 40, 112); ctx.restore(); ctx.direction = 'rtl';
+  }
+
+  // ---- top banner (left side, like the reference)
+  const banner = v('banner');
+  if(banner){
+    ctx.font = `800 34px ${fam}`; const bw = Math.min(W - 360, ctx.measureText(banner).width + 70);
+    ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.3)'; ctx.shadowBlur = 12;
+    const bg = ctx.createLinearGradient(0, 0, bw, 0); bg.addColorStop(0, A2); bg.addColorStop(1, A);
+    ctx.fillStyle = bg; ctx.beginPath();
+    ctx.moveTo(0, 0); ctx.lineTo(bw + 40, 0); ctx.quadraticCurveTo(bw + 14, 6, bw, 40);
+    ctx.lineTo(bw - 8, 64); ctx.quadraticCurveTo(bw - 16, 80, bw - 40, 80); ctx.lineTo(0, 80); ctx.fill();
+    ctx.restore();
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'right'; ctx.fillText(banner, bw - 30, 54);
+  }
+
+  // ---- white outline frame behind the card
+  const oy = cardBottom + 60, ox = 24;
+  ctx.save(); ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = 4; ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(cardX + 14, cardY + cardH*0.42);
+  ctx.lineTo(ox + 10, oy - 30);
+  ctx.quadraticCurveTo(ox, oy, ox + 34, oy);
+  ctx.lineTo(W*0.66, oy);
+  ctx.quadraticCurveTo(W*0.74, oy - 6, W*0.79, cardBottom + 14);
+  ctx.stroke(); ctx.restore();
+
+  // ---- the card
+  ctx.save(); ctx.shadowColor = 'rgba(0,10,40,.28)'; ctx.shadowBlur = 30; ctx.shadowOffsetY = 10;
+  ctx.fillStyle = '#ffffff'; rr(cardX, cardY, cardW, cardH, 16); ctx.fill(); ctx.restore();
+
+  // ---- tab on the card's top-right
+  const tag = v('tag');
+  if(tag){
+    ctx.font = `${wt} 46px ${fam}`;
+    const tw = Math.max(260, ctx.measureText(tag).width + 120), th = 82;
+    const tr = cardX + cardW - 64, tl = tr - tw, ty = cardY - th + 14;
+    ctx.save(); ctx.shadowColor = 'rgba(0,10,40,.35)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 4;
+    const tg = ctx.createLinearGradient(tl, 0, tr, 0); tg.addColorStop(0, A2); tg.addColorStop(1, AL);
+    ctx.fillStyle = tg; ctx.beginPath();
+    ctx.moveTo(tl + 8, ty + th);
+    ctx.lineTo(tl + 2, ty + 22); ctx.quadraticCurveTo(tl, ty, tl + 24, ty);
+    ctx.lineTo(tr - 34, ty); ctx.quadraticCurveTo(tr - 14, ty, tr - 6, ty + 18);
+    ctx.lineTo(tr + 26, ty + th); ctx.closePath(); ctx.fill();
+    ctx.restore();
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.direction = 'rtl';
+    ctx.fillText(tag, tl + tw/2 + 10, ty + th*0.66);
+  }
+
+  // ---- card text
+  const mid = cardX + cardW/2;
+  let y = cardY + (cardH - 30 - textH)/2 + fs*1.05;
+  ctx.textAlign = 'center';
+  if(kick){ ctx.font = `${wt} ${kfs}px ${fam}`; ctx.fillStyle = '#d8131c'; ctx.fillText(kick, mid, y); y += kfs*1.45; }
+  ctx.font = `${wt} ${fs}px ${fam}`; ctx.fillStyle = '#0c0c0f';
+  lines.forEach(l => { ctx.fillText(l, mid, y); y += lh; });
+
+  // ---- quote marks on the card's bottom-right corner
+  if($('quote').value === '1') quoteMarks(cardX + cardW - 72, cardBottom - 58, 104);
+
+  // ---- footer
+  const site = v('site');
+  if(site){
+    ctx.save(); ctx.direction = 'ltr'; ctx.textAlign = 'center'; ctx.fillStyle = '#fff';
+    ctx.font = `800 44px Cairo, sans-serif`; ctx.shadowColor = 'rgba(0,0,0,.2)'; ctx.shadowBlur = 6;
+    ctx.fillText(site, W*0.505, H - 104); ctx.restore(); ctx.direction = 'rtl';
+  }
+  icons(W*0.505, H - 52, 38);
   $('fallback').hidden = true;
 }
 
@@ -418,7 +380,7 @@ $('save').onclick = async () => {
 
 draw();
 if(document.fonts){
-  Promise.all(['900 40px "Noto Kufi Arabic"','500 40px "Noto Kufi Arabic"','700 40px "Noto Naskh Arabic"','700 40px Amiri','800 40px Cairo']
+  Promise.all(['900 40px Cairo','800 40px Cairo','800 40px Almarai','800 40px Changa','800 40px Tajawal']
     .map(f => document.fonts.load(f, 'عربي'))).then(draw, draw);
 }
 })();
