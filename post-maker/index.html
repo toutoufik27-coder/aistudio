@@ -1,26 +1,30 @@
 <title>صانع المنشورات</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800;900&family=Tajawal:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@500;700;800;900&family=Noto+Kufi+Arabic:wght@500;700;900&family=Noto+Naskh+Arabic:wght@500;700&family=Tajawal:wght@500;700&display=swap">
 <style>
-/* Layout: one column on phones — live preview on top, form below; two columns on wide screens. */
+/* Layout: phone — preview, template picker, then form; wide — preview column + form column. */
 :root{
-  --bg:#eef1f7; --panel:#ffffff; --fg:#141a2b; --muted:#5b6478; --line:#d7dcea;
-  --accent:#1240c9; --accent-fg:#ffffff;
-  --display:"Cairo","Tajawal",system-ui,sans-serif; --body:"Tajawal","Cairo",system-ui,sans-serif;
+  --bg:#eef0f4; --panel:#ffffff; --fg:#121621; --muted:#5d6577; --line:#d8dce6;
+  --accent:#b3121f; --accent-fg:#ffffff;
+  --display:"Noto Kufi Arabic","Cairo",system-ui,sans-serif; --body:"Tajawal","Cairo",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0d1120; --panel:#161c30; --fg:#e8ecf7; --muted:#9aa3ba; --line:#2a3350; --accent:#5b82ff; --accent-fg:#0d1120; color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0d1120; --panel:#161c30; --fg:#e8ecf7; --muted:#9aa3ba; --line:#2a3350; --accent:#5b82ff; --accent-fg:#0d1120; color-scheme:dark}
+  --bg:#0e1017; --panel:#171a24; --fg:#e9ebf1; --muted:#9aa1b2; --line:#2a2f3d; --accent:#ff5a63; --accent-fg:#0e1017; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1017; --panel:#171a24; --fg:#e9ebf1; --muted:#9aa1b2; --line:#2a2f3d; --accent:#ff5a63; --accent-fg:#0e1017; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;direction:rtl;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 40px}
-.wrap{max-width:1100px;margin:0 auto;display:grid;gap:20px}
-@media(min-width:900px){.wrap{grid-template-columns:minmax(0,1fr) 400px;align-items:start}.preview{position:sticky;top:16px}}
-h1{font-family:var(--display);font-weight:900;font-size:1.6rem;margin:0;text-wrap:balance}
+.wrap{max-width:1120px;margin:0 auto;display:grid;gap:20px}
+@media(min-width:920px){.wrap{grid-template-columns:minmax(0,1fr) 420px;align-items:start}.preview{position:sticky;top:16px}}
+h1{font-family:var(--display);font-weight:900;font-size:1.45rem;margin:0;text-wrap:balance}
 .sub{color:var(--muted);margin:4px 0 0}
 .preview{display:grid;gap:12px;min-width:0}
-canvas{width:100%;max-width:100%;height:auto;border-radius:6px;box-shadow:0 10px 30px rgba(10,20,60,.25);background:#223}
+canvas{width:100%;max-width:100%;height:auto;border-radius:4px;box-shadow:0 12px 34px rgba(10,15,40,.28);background:#222}
+.tpls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.tpl{font:inherit;font-weight:700;font-size:.85rem;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:10px;padding:10px 4px;cursor:pointer;display:grid;gap:2px;justify-items:center}
+.tpl small{font-weight:500;color:var(--muted);font-size:.72rem}
+.tpl[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
 .actions{display:flex;gap:10px;flex-wrap:wrap}
 button{font:inherit;font-weight:700;border:0;border-radius:10px;padding:12px 18px;cursor:pointer}
 .primary{background:var(--accent);color:var(--accent-fg);flex:1}
@@ -28,32 +32,38 @@ button{font:inherit;font-weight:700;border:0;border-radius:10px;padding:12px 18p
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .msg{color:var(--muted);font-size:.9rem;min-height:1.2em;margin:0}
 form{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:14px;min-width:0}
-fieldset{border:0;padding:0;margin:0;display:grid;gap:12px}
-legend{font-family:var(--display);font-weight:800;font-size:1.05rem;margin-bottom:6px}
-label{display:grid;gap:5px;font-weight:700;font-size:.92rem}
-.hint{font-weight:500;color:var(--muted);font-size:.82rem}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:12px;min-width:0}
+legend{font-family:var(--display);font-weight:900;font-size:1rem;margin-bottom:6px}
+label{display:grid;gap:5px;font-weight:700;font-size:.92rem;min-width:0}
+.hint{font-weight:500;color:var(--muted);font-size:.8rem}
 input[type=text],textarea,select{font:inherit;width:100%;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
 textarea{min-height:110px;resize:vertical;line-height:1.6}
 input[type=file]{font:inherit;color:var(--muted);max-width:100%}
 input[type=range]{width:100%;accent-color:var(--accent)}
-.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
-.colors{display:flex;gap:10px;flex-wrap:wrap}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.colors{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .sw{width:38px;height:38px;border-radius:50%;border:3px solid transparent;padding:0}
 .sw[aria-pressed="true"]{border-color:var(--fg)}
 hr{border:0;border-top:1px solid var(--line);margin:2px 0}
-#fallback img{width:100%;border-radius:6px}
+#fallback img{width:100%;border-radius:4px}
 </style>
 
 <div class="wrap">
   <section class="preview" aria-label="المعاينة">
     <div>
       <h1>صانع المنشورات</h1>
-      <p class="sub">ضع صورة، واسم الشخصية، والتصريح، ثم احفظ الصورة.</p>
+      <p class="sub">اختر القالب، ضع الصورة والنص، ثم احفظ.</p>
     </div>
     <canvas id="cv" width="1080" height="1080"></canvas>
+    <div class="tpls" id="tpls" role="group" aria-label="القالب">
+      <button type="button" class="tpl" data-t="front">الصفحة الأولى<small>عنوان رئيسي</small></button>
+      <button type="button" class="tpl" data-t="quote">تصريح<small>اقتباس على الصورة</small></button>
+      <button type="button" class="tpl" data-t="breaking">عاجل<small>خبر سريع</small></button>
+      <button type="button" class="tpl" data-t="card">البطاقة<small>القالب الأول</small></button>
+    </div>
     <div class="actions">
       <button class="primary" id="save" type="button">حفظ الصورة PNG</button>
-      <button class="ghost" id="reset" type="button">مثال جديد</button>
+      <button class="ghost" id="reset" type="button">إزالة الصور</button>
     </div>
     <p class="msg" id="msg"></p>
     <div id="fallback" hidden><p class="msg">اضغط مطوّلًا على الصورة واختر «حفظ الصورة».</p><img id="fbimg" alt="المنشور النهائي"></div>
@@ -67,42 +77,42 @@ hr{border:0;border-top:1px solid var(--line);margin:2px 0}
       <div class="row">
         <label>تكبير <input type="range" id="zoom" min="1" max="3" step="0.01" value="1"></label>
         <label>أفقي <input type="range" id="px" min="0" max="1" step="0.01" value="0.5"></label>
-        <label>عمودي <input type="range" id="py" min="0" max="1" step="0.01" value="0.3"></label>
+        <label>عمودي <input type="range" id="py" min="0" max="1" step="0.01" value="0.25"></label>
       </div>
     </fieldset>
     <hr>
     <fieldset>
-      <legend>النص</legend>
-      <label>الشريط الأزرق (اسم الشخصية أو التصنيف)
-        <input type="text" id="tag" value="اسم الشخصية"></label>
-      <label>العنوان الملوّن (اختياري) <span class="hint">سطر بارز فوق التصريح، بلون مختلف</span>
-        <input type="text" id="kicker" value=""></label>
-      <label>التصريح أو موضوع المنشور
-        <textarea id="body">اكتب هنا التصريح أو العنوان الرئيسي للمنشور، وسيتم ضبط حجم الخط تلقائيًا ليناسب البطاقة</textarea></label>
+      <legend>الخبر</legend>
       <div class="row">
-        <label>حجم الخط
-          <select id="size"><option value="auto">تلقائي</option><option value="big">كبير (عنوان)</option><option value="mid">متوسط</option><option value="small">صغير (تصريح طويل)</option></select></label>
-        <label>علامة الاقتباس
-          <select id="quote"><option value="1">تظهر</option><option value="0">مخفية</option></select></label>
+        <label>القسم <input type="text" id="cat" value="دولي"></label>
+        <label>التاريخ <input type="text" id="date" value=""></label>
       </div>
+      <label>العنوان أو التصريح
+        <textarea id="body">اكتب هنا العنوان الرئيسي أو التصريح، ويُضبط حجم الخط تلقائيًا ليملأ المساحة بأفضل شكل</textarea></label>
+      <label>كلمات بارزة <span class="hint">كلمة أو عبارة من النص تظهر بلون القالب</span>
+        <input type="text" id="hl" value="العنوان الرئيسي"></label>
+      <div class="row">
+        <label>اسم الشخصية <input type="text" id="name" value="اسم الشخصية"></label>
+        <label>المنصب أو الصفة <input type="text" id="role" value="المنصب أو الصفة"></label>
+      </div>
+      <label>حجم الخط
+        <select id="size"><option value="auto">تلقائي</option><option value="1.15">أكبر</option><option value="0.85">أصغر</option></select></label>
     </fieldset>
     <hr>
     <fieldset>
       <legend>هوية صفحتك</legend>
-      <label>شريط علوي (اختياري)
-        <input type="text" id="banner" value=""></label>
-      <label>الشعار (صورة PNG شفافة يفضَّل)
+      <label>الشعار <span class="hint">صورة PNG بخلفية شفافة أفضل</span>
         <input type="file" id="logo" accept="image/*"></label>
-      <label>أو اسم الصفحة نصًّا بدل الشعار
-        <input type="text" id="brand" value="صفحتي"></label>
-      <label>الموقع أو الحساب في الأسفل
+      <label>اسم الصفحة <span class="hint">يظهر إن لم تضع شعارًا</span>
+        <input type="text" id="brand" value="صحيفتي"></label>
+      <label>الموقع أو الحساب
         <input type="text" id="site" value="www.example.com"></label>
       <div>
-        <span style="font-weight:700;font-size:.92rem">اللون الرئيسي</span>
-        <div class="colors" id="colors" role="group" aria-label="اللون الرئيسي"></div>
+        <span style="font-weight:700;font-size:.92rem">لون القالب</span>
+        <div class="colors" id="colors" role="group" aria-label="لون القالب"></div>
       </div>
       <label>المقاس
-        <select id="ratio"><option value="1">مربع 1080×1080 (فيسبوك، إنستغرام)</option><option value="1.25">عمودي 1080×1350 (إنستغرام)</option><option value="1.7778">ستوري 1080×1920</option></select></label>
+        <select id="ratio"><option value="1">مربع 1080×1080</option><option value="1.25">عمودي 1080×1350</option><option value="1.7778">ستوري 1080×1920</option></select></label>
     </fieldset>
   </form>
 </div>
@@ -111,14 +121,17 @@ hr{border:0;border-top:1px solid var(--line);margin:2px 0}
 (() => {
 const $ = id => document.getElementById(id);
 const cv = $('cv'), ctx = cv.getContext('2d');
+const KUFI = '"Noto Kufi Arabic", Cairo, sans-serif', NASKH = '"Noto Naskh Arabic", Amiri, serif',
+      AMIRI = 'Amiri, "Noto Naskh Arabic", serif', CAIRO = 'Cairo, sans-serif';
 const PALETTE = [
-  ['#1240c9','#0a2a8f','أزرق'], ['#0b7a3b','#055027','أخضر'], ['#b3121f','#7a0a13','أحمر'],
-  ['#1b1f2a','#000000','أسود'], ['#7a3cc9','#4d1f8a','بنفسجي'], ['#c76a0a','#7f3f00','برتقالي']
+  ['#b3121f','#7d0a13','أحمر'], ['#1240c9','#0a2a8f','أزرق'], ['#0b7a3b','#055027','أخضر'],
+  ['#c98a0a','#8a5c00','ذهبي'], ['#1b1f2a','#000000','أسود'], ['#6a2fc0','#431b80','بنفسجي']
 ];
-let accent = PALETTE[0];
-let photo = null, logo = null;
+let accent = PALETTE[0], tpl = 'front', photo = null, logo = null;
+try { tpl = localStorage.getItem('pm-tpl') || 'front'; } catch(e){}
 
-// color buttons
+try { $('date').value = new Date().toLocaleDateString('ar-DZ', {day:'numeric', month:'long', year:'numeric'}); } catch(e){ $('date').value = ''; }
+
 PALETTE.forEach((p, i) => {
   const b = document.createElement('button');
   b.type = 'button'; b.className = 'sw'; b.style.background = p[0];
@@ -126,6 +139,9 @@ PALETTE.forEach((p, i) => {
   b.onclick = () => { accent = p; [...$('colors').children].forEach(c => c.setAttribute('aria-pressed', c === b)); draw(); };
   $('colors').appendChild(b);
 });
+const markTpl = () => [...$('tpls').children].forEach(b => b.setAttribute('aria-pressed', b.dataset.t === tpl));
+[...$('tpls').children].forEach(b => b.onclick = () => { tpl = b.dataset.t; try{localStorage.setItem('pm-tpl', tpl)}catch(e){} markTpl(); draw(); });
+markTpl();
 
 function loadImg(file, cb){
   if(!file) return;
@@ -139,26 +155,31 @@ $('f').addEventListener('input', draw);
 $('f').addEventListener('submit', e => e.preventDefault());
 $('reset').onclick = () => { photo = null; logo = null; $('photo').value=''; $('logo').value=''; draw(); };
 
+/* ---------- helpers ---------- */
+const v = id => $(id).value.trim();
 function rr(x,y,w,h,r){ ctx.beginPath(); ctx.roundRect(x,y,w,h,r); }
 
-function placeholder(W, H){
-  const g = ctx.createLinearGradient(0,0,W,H);
-  g.addColorStop(0,'#3a4766'); g.addColorStop(1,'#1c2338');
-  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
-  ctx.fillStyle = 'rgba(255,255,255,.10)';
-  ctx.beginPath(); ctx.arc(W*0.5, H*0.24, H*0.11, 0, Math.PI*2); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(W*0.5, H*0.56, H*0.22, H*0.2, 0, Math.PI, 0); ctx.fill();
-  ctx.fillStyle = 'rgba(255,255,255,.55)'; ctx.font = '700 34px Cairo'; ctx.textAlign='center'; ctx.direction='rtl';
-  ctx.fillText('ضع صورة الشخصية من الأسفل', W/2, H*0.66);
+function photoIn(x, y, w, h){
+  ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+  if(!photo){
+    const g = ctx.createLinearGradient(x, y, x+w, y+h);
+    g.addColorStop(0,'#4a5470'); g.addColorStop(1,'#1d2233');
+    ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = 'rgba(255,255,255,.09)';
+    const cx = x + w*0.5, r = Math.min(w, h);
+    ctx.beginPath(); ctx.arc(cx, y + h*0.36, r*0.15, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx, y + h*0.98, r*0.32, r*0.38, 0, Math.PI, 0); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.font = `700 30px ${CAIRO}`; ctx.textAlign = 'center'; ctx.direction = 'rtl';
+    ctx.fillText('ضع صورة من الأسفل', cx, y + h*0.12 + 30);
+  } else {
+    const s = Math.max(w/photo.width, h/photo.height) * +$('zoom').value;
+    const pw = photo.width*s, ph = photo.height*s;
+    ctx.drawImage(photo, x - (pw-w)*+$('px').value, y - (ph-h)*+$('py').value, pw, ph);
+  }
+  ctx.restore();
 }
 
-function drawPhoto(W, H){
-  if(!photo){ placeholder(W, H); return; }
-  const z = +$('zoom').value, s = Math.max(W/photo.width, H/photo.height) * z;
-  const w = photo.width*s, h = photo.height*s;
-  ctx.drawImage(photo, -(w-W)*+$('px').value, -(h-H)*+$('py').value, w, h);
-}
-
+// wrap into lines by measuring with the current font
 function wrap(text, maxW){
   const out = [];
   text.split('\n').forEach(par => {
@@ -167,33 +188,176 @@ function wrap(text, maxW){
       if(ctx.measureText(t).width > maxW && line){ out.push(line); line = w; } else line = t; });
     if(line) out.push(line);
   });
-  return out;
+  return out.length ? out : [''];
+}
+// biggest font size whose wrapped text fits the box
+function fit(text, weight, family, maxW, maxH, maxFs, minFs, lhr){
+  let fs = maxFs, lines;
+  for(; fs >= minFs; fs -= 2){ ctx.font = `${weight} ${fs}px ${family}`; lines = wrap(text, maxW); if(lines.length*fs*lhr <= maxH) break; }
+  fs = Math.max(fs, minFs);
+  const k = +$('size').value || 1;
+  if(k !== 1){ fs = Math.round(fs*k); ctx.font = `${weight} ${fs}px ${family}`; lines = wrap(text, maxW); }
+  return {fs, lines, lh: fs*lhr};
+}
+// draw a line in RTL; words inside the highlight phrase get the accent color
+function lineHL(line, xRight, y, base, hiCol, align){
+  const hl = v('hl');
+  ctx.direction = 'rtl';
+  const words = line.split(' ');
+  const hlWords = hl ? hl.split(/\s+/) : [];
+  const full = v('body').replace(/\s+/g,' ');
+  const start = hl ? full.indexOf(hl) : -1;
+  // mark words of this line that fall within the highlight span
+  let cursor = xRight;
+  const lineW = ctx.measureText(line).width, sp = ctx.measureText(' ').width;
+  if(align === 'center') cursor = xRight + lineW/2;
+  ctx.textAlign = 'right';
+  words.forEach(w => {
+    const isHi = start >= 0 && hlWords.includes(w);
+    ctx.fillStyle = isHi ? hiCol : base;
+    ctx.fillText(w, cursor, y);
+    cursor -= ctx.measureText(w).width + sp;
+  });
+}
+function brand(x, y, h, align, color){
+  if(logo){
+    const w = logo.width * h / logo.height;
+    ctx.drawImage(logo, align === 'left' ? x : align === 'center' ? x - w/2 : x - w, y, w, h);
+    return w;
+  }
+  const t = v('brand'); if(!t) return 0;
+  ctx.font = `900 ${h*0.78}px ${KUFI}`; ctx.fillStyle = color; ctx.direction = 'rtl'; ctx.textAlign = align;
+  ctx.fillText(t, x, y + h*0.8);
+  return ctx.measureText(t).width;
+}
+function site(x, y, size, color, align){
+  const s = v('site'); if(!s) return;
+  ctx.direction = 'ltr'; ctx.textAlign = align; ctx.fillStyle = color;
+  ctx.font = `700 ${size}px ${CAIRO}`; ctx.fillText(s, x, y); ctx.direction = 'rtl';
+}
+function nameRole(xRight, y, nameCol, roleCol, nfs){
+  const n = v('name'), r = v('role');
+  ctx.direction = 'rtl'; ctx.textAlign = 'right';
+  if(n){ ctx.font = `900 ${nfs}px ${KUFI}`; ctx.fillStyle = nameCol; ctx.fillText(n, xRight, y); }
+  if(r){ ctx.font = `500 ${Math.round(nfs*0.68)}px ${KUFI}`; ctx.fillStyle = roleCol; ctx.fillText(r, xRight, y + nfs*1.25); }
 }
 
-// stylized quote mark: two slanted comma blocks
-function quoteMark(x, y, s, col){
-  ctx.fillStyle = col;
-  for(let i=0;i<2;i++){
-    const ox = x + i*s*0.62;
-    ctx.beginPath();
-    ctx.moveTo(ox, y); ctx.lineTo(ox+s*0.5, y); ctx.lineTo(ox+s*0.5, y+s*0.45);
-    ctx.lineTo(ox+s*0.22, y+s*1.0); ctx.lineTo(ox+s*0.02, y+s*0.95); ctx.lineTo(ox+s*0.16, y+s*0.5); ctx.lineTo(ox, y+s*0.5);
-    ctx.closePath(); ctx.fill();
+/* ---------- template 1: front page ---------- */
+function front(W, H, A, A2){
+  const INK = '#111318', PAPER = '#ffffff', M = 60;
+  ctx.fillStyle = PAPER; ctx.fillRect(0, 0, W, H);
+  // masthead
+  const mh = 128;
+  brand(W/2, 22, 76, 'center', INK);
+  ctx.fillStyle = INK; ctx.fillRect(M, mh, W-2*M, 4); ctx.fillRect(M, mh+9, W-2*M, 1.5);
+  ctx.font = `500 24px ${KUFI}`; ctx.direction = 'rtl'; ctx.textAlign = 'right'; ctx.fillStyle = '#555';
+  ctx.fillText(v('date'), W-M, mh+44);
+  site(M, mh+44, 24, '#555', 'left');
+  // photo
+  const py = mh + 64, ph = Math.round((H - py) * 0.52);
+  photoIn(M, py, W-2*M, ph);
+  // category flag on the photo edge
+  const cat = v('cat');
+  let ty = py + ph + 64;
+  if(cat){
+    ctx.font = `900 30px ${KUFI}`; const cw = ctx.measureText(cat).width + 44;
+    ctx.fillStyle = A; ctx.fillRect(W-M-cw, py+ph-26, cw, 52);
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(cat, W-M-cw/2, py+ph+10);
+    ty += 14;
+  }
+  // headline
+  const footH = (v('name')||v('role')) ? 130 : 40;
+  const box = H - ty - footH;
+  const {fs, lines, lh} = fit(v('body'), 900, KUFI, W-2*M, box, 78, 34, 1.42);
+  let y = ty + fs*0.95;
+  ctx.font = `900 ${fs}px ${KUFI}`;
+  lines.forEach(l => { lineHL(l, W-M, y, INK, A, 'right'); y += lh; });
+  // byline
+  if(v('name')||v('role')){
+    const by = H - 104;
+    ctx.fillStyle = '#d5d7dd'; ctx.fillRect(M, by-46, W-2*M, 2);
+    ctx.fillStyle = A; ctx.fillRect(W-M-6, by-26, 6, 70);
+    nameRole(W-M-22, by+4, INK, '#666b78', 34);
   }
 }
 
-function draw(){
-  const W = 1080, H = Math.round(1080 * +$('ratio').value);
-  if(cv.height !== H) cv.height = H;
-  const [A, A2] = accent;
-  ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,W,H);
-  ctx.direction = 'rtl';
+/* ---------- template 2: quote on photo ---------- */
+function quote(W, H, A){
+  photoIn(0, 0, W, H);
+  const g = ctx.createLinearGradient(0, H*0.25, 0, H);
+  g.addColorStop(0, 'rgba(8,9,14,0)'); g.addColorStop(0.45, 'rgba(8,9,14,.82)'); g.addColorStop(1, 'rgba(8,9,14,.97)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  const top = ctx.createLinearGradient(0, 0, 0, 200);
+  top.addColorStop(0, 'rgba(0,0,0,.45)'); top.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = top; ctx.fillRect(0, 0, W, 200);
+  const M = 70;
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.4)'; ctx.shadowBlur = 10;
+  brand(M, 48, 64, 'left', '#fff'); ctx.restore();
+  const cat = v('cat');
+  if(cat){
+    ctx.font = `900 28px ${KUFI}`; ctx.direction='rtl'; const cw = ctx.measureText(cat).width + 46;
+    ctx.fillStyle = A; rr(W-M-cw, 52, cw, 54, 27); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(cat, W-M-cw/2, 89);
+  }
+  // text block anchored to bottom
+  const nameH = (v('name')||v('role')) ? 140 : 0;
+  const bottom = H - 110 - nameH;
+  const maxH = Math.min(H*0.42, bottom - H*0.42);
+  const {fs, lines, lh} = fit(v('body'), 700, NASKH, W-2*M, maxH, 70, 32, 1.6);
+  const textTop = bottom - lines.length*lh;
+  // giant quotation mark
+  ctx.font = `700 ${Math.round(fs*4)}px ${AMIRI}`; ctx.fillStyle = A; ctx.textAlign = 'right'; ctx.direction = 'rtl';
+  ctx.fillText('“', W-M+10, textTop + fs*1.2);
+  let y = textTop + fs*1.55;
+  ctx.font = `700 ${fs}px ${NASKH}`;
+  lines.forEach(l => { lineHL(l, W-M, y, '#fff', '#ffd25e', 'right'); y += lh; });
+  if(nameH){
+    const ny = bottom + 70;
+    ctx.fillStyle = A; ctx.fillRect(W-M-7, ny-42, 7, 92);
+    nameRole(W-M-26, ny, '#fff', 'rgba(255,255,255,.7)', 38);
+  }
+  ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.fillRect(M, H-74, W-2*M, 1.5);
+  site(M, H-34, 24, 'rgba(255,255,255,.75)', 'left');
+  ctx.font = `500 24px ${KUFI}`; ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.textAlign='right'; ctx.direction='rtl';
+  ctx.fillText(v('date'), W-M, H-34);
+}
 
-  // bottom band height scales with format
+/* ---------- template 3: breaking ---------- */
+function breaking(W, H, A, A2){
+  const split = Math.round(H*0.5);
+  photoIn(0, 0, W, split + 40);
+  const g = ctx.createLinearGradient(0, split, 0, H);
+  g.addColorStop(0, A); g.addColorStop(1, A2);
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.moveTo(0, split+40); ctx.lineTo(W, split-10); ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.fill();
+  // brand chip top-left
+  ctx.save(); ctx.shadowColor='rgba(0,0,0,.45)'; ctx.shadowBlur=12; brand(56, 44, 60, 'left', '#fff'); ctx.restore();
+  const M = 64;
+  // label
+  const cat = v('cat') || 'عاجل';
+  ctx.font = `900 40px ${KUFI}`; ctx.direction = 'rtl';
+  const cw = ctx.measureText(cat).width + 70, cy = split - 54;
+  ctx.fillStyle = '#fff'; ctx.fillRect(W-M-cw, cy, cw, 70);
+  ctx.fillStyle = A; ctx.beginPath(); ctx.arc(W-M-28, cy+35, 10, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#111'; ctx.textAlign = 'right'; ctx.fillText(cat, W-M-48, cy+50);
+  // headline
+  const top = split + 70, footH = 120 + ((v('name')||v('role')) ? 0 : -40);
+  const {fs, lines, lh} = fit(v('body'), 900, KUFI, W-2*M, H - top - footH, 76, 34, 1.42);
+  let y = top + fs*0.95;
+  ctx.font = `900 ${fs}px ${KUFI}`;
+  lines.forEach(l => { lineHL(l, W-M, y, '#fff', '#ffd25e', 'right'); y += lh; });
+  // footer
+  ctx.fillStyle = 'rgba(255,255,255,.25)'; ctx.fillRect(M, H-84, W-2*M, 1.5);
+  const nm = [v('name'), v('role')].filter(Boolean).join(' · ');
+  ctx.font = `700 26px ${KUFI}`; ctx.fillStyle = 'rgba(255,255,255,.9)'; ctx.textAlign = 'right';
+  ctx.fillText(nm || v('date'), W-M, H-38);
+  site(M, H-38, 26, 'rgba(255,255,255,.85)', 'left');
+}
+
+/* ---------- template 4: the first card style ---------- */
+function card(W, H, A, A2){
   const bandTop = H - Math.round(H*0.42);
-  drawPhoto(W, bandTop + 120);
-
-  // blue band with soft diagonal stripes
+  photoIn(0, 0, W, bandTop + 120);
   const g = ctx.createLinearGradient(0, bandTop, 0, H);
   g.addColorStop(0, A); g.addColorStop(1, A2);
   ctx.fillStyle = g; ctx.fillRect(0, bandTop+60, W, H-bandTop-60);
@@ -203,54 +367,18 @@ function draw(){
   ctx.save(); ctx.globalAlpha = .07; ctx.fillStyle = '#fff';
   for(let x=-200;x<W;x+=180){ ctx.beginPath(); ctx.moveTo(x,H); ctx.lineTo(x+90,H); ctx.lineTo(x+330,bandTop+80); ctx.lineTo(x+240,bandTop+80); ctx.fill(); }
   ctx.restore();
+  ctx.save(); ctx.shadowColor='rgba(0,0,0,.4)'; ctx.shadowBlur=12; brand(44, 40, 64, 'left', '#fff'); ctx.restore();
 
-  // top banner
-  const banner = $('banner').value.trim();
-  if(banner){
-    ctx.font = '800 34px Cairo'; const bw = Math.min(W-80, ctx.measureText(banner).width + 90);
-    ctx.fillStyle = A; ctx.beginPath(); ctx.moveTo(W, 0); ctx.lineTo(W, 78); ctx.lineTo(W-bw, 78); ctx.lineTo(W-bw-40, 0); ctx.fill();
-    ctx.fillStyle = '#fff'; ctx.textAlign = 'right'; ctx.fillText(banner, W-36, 52);
-  }
-
-  // logo or brand text, top-left
-  if(logo){
-    const lh = 150, lw = Math.min(260, logo.width * lh / logo.height);
-    ctx.save(); ctx.shadowColor='rgba(0,0,0,.35)'; ctx.shadowBlur=14;
-    ctx.drawImage(logo, 40, banner ? 100 : 40, lw, lw*logo.height/logo.width); ctx.restore();
-  } else if($('brand').value.trim()){
-    const t = $('brand').value.trim(); ctx.font = '900 46px Cairo'; ctx.textAlign = 'left';
-    const tw = ctx.measureText(t).width;
-    ctx.save(); ctx.shadowColor='rgba(0,0,0,.4)'; ctx.shadowBlur=12;
-    ctx.fillStyle='rgba(255,255,255,.92)'; ctx.fillText(t, 44 , banner?150:90);
-    ctx.restore(); ctx.fillStyle = A; ctx.fillRect(44, banner?166:106, tw, 6);
-  }
-
-  // card
   const cx = 70, cw = W-140, cy = bandTop;
-  const kick = $('kicker').value.trim(), body = $('body').value.trim() || ' ';
-  const maxW = cw - 110;
-  const sizes = {big:[64,48], mid:[52,44], small:[40,36]};
-  let fs, lines, lh;
   const avail = H - cy - 260;
-  const tryFit = f => { ctx.font = `800 ${f}px Cairo`; const L = wrap(body, maxW); return [L, f*1.55]; };
-  if($('size').value === 'auto'){
-    for(fs = 66; fs >= 30; fs -= 2){ [lines, lh] = tryFit(fs); if(lines.length*lh + (kick?fs*1.5:0) <= avail) break; }
-  } else { fs = sizes[$('size').value][0]; [lines, lh] = tryFit(fs); }
-  const kfs = Math.round(fs*1.02);
-  const textH = lines.length*lh + (kick ? kfs*1.55 : 0);
-  const ch = Math.max(200, textH + 90);
-
-  // outline under card
-  ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 4;
-  rr(cx-38, cy+60, cw+10, ch+40, 26); ctx.stroke();
-
+  const {fs, lines, lh} = fit(v('body'), 800, CAIRO, cw-110, avail, 66, 30, 1.55);
+  const ch = Math.max(200, lines.length*lh + 90);
+  ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 4; rr(cx-38, cy+60, cw+10, ch+40, 26); ctx.stroke();
   ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 8;
   ctx.fillStyle = '#fff'; rr(cx, cy, cw, ch, 18); ctx.fill(); ctx.restore();
-
-  // tag tab
-  const tag = $('tag').value.trim();
+  const tag = v('name') || v('cat');
   if(tag){
-    ctx.font = '800 42px Cairo'; const tw = ctx.measureText(tag).width + 110;
+    ctx.font = `800 42px ${CAIRO}`; ctx.direction='rtl'; const tw = ctx.measureText(tag).width + 110;
     const tx = cx + cw - tw - 10, ty = cy - 74;
     ctx.save(); ctx.shadowColor='rgba(0,0,0,.25)'; ctx.shadowBlur=12;
     const tg = ctx.createLinearGradient(tx,0,tx+tw,0); tg.addColorStop(0,A2); tg.addColorStop(1,A);
@@ -260,24 +388,19 @@ function draw(){
     ctx.restore();
     ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(tag, tx + tw/2 + 12, ty + 56);
   }
+  let y = cy + (ch - lines.length*lh)/2 + fs*1.05;
+  ctx.font = `800 ${fs}px ${CAIRO}`;
+  lines.forEach(l => { const w = ctx.measureText(l).width; lineHL(l, cx + cw/2 + w/2, y, '#111', A, 'right'); y += lh; });
+  ctx.font = `700 210px ${AMIRI}`; ctx.fillStyle = A; ctx.textAlign = 'right'; ctx.fillText('”', cx + cw + 30, cy + ch + 110);
+  site(W/2, Math.min(Math.max(cy + ch + 150, H - 90), H-50), 44, '#fff', 'center');
+}
 
-  // text
-  ctx.textAlign = 'center'; const mid = cx + cw/2;
-  let y = cy + (ch - textH)/2 + fs*1.05;
-  if(kick){ ctx.font = `900 ${kfs}px Cairo`; ctx.fillStyle = '#c4141f'; ctx.fillText(kick, mid, y, maxW); y += kfs*1.55; }
-  ctx.font = `800 ${fs}px Cairo`; ctx.fillStyle = '#111';
-  lines.forEach(l => { ctx.fillText(l, mid, y); y += lh; });
-
-  if($('quote').value === '1') quoteMark(cx + cw - 70, cy + ch - 50, 105, A);
-
-  // footer
-  const site = $('site').value.trim();
-  if(site){
-    ctx.fillStyle = '#fff'; ctx.font = '800 46px Cairo'; ctx.direction = 'ltr'; ctx.textAlign = 'center';
-    const fy = Math.max(cy + ch + 150, H - 90);
-    ctx.fillText(site, W/2, Math.min(fy, H-50));
-    ctx.direction = 'rtl';
-  }
+function draw(){
+  const W = 1080, H = Math.round(1080 * +$('ratio').value);
+  if(cv.height !== H) cv.height = H;
+  ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,W,H); ctx.direction = 'rtl';
+  const [A, A2] = accent;
+  ({front, quote, breaking, card})[tpl](W, H, A, A2);
   $('fallback').hidden = true;
 }
 
@@ -290,12 +413,13 @@ $('save').onclick = async () => {
     try { await dl.save({filename: name, data: blob}); $('msg').textContent = 'تم الحفظ.'; return; }
     catch(e){ if(e && e.code === 'declined'){ $('msg').textContent = 'أُلغي الحفظ.'; return; } }
   }
-  $('fbimg').src = cv.toDataURL('image/png'); $('fallback').hidden = false;
-  $('msg').textContent = '';
+  $('fbimg').src = cv.toDataURL('image/png'); $('fallback').hidden = false; $('msg').textContent = '';
 };
 
-const start = () => draw();
-if(document.fonts){ Promise.all(['800 40px Cairo','900 40px Cairo'].map(f=>document.fonts.load(f,'عربي'))).then(start, start); } else start();
 draw();
+if(document.fonts){
+  Promise.all(['900 40px "Noto Kufi Arabic"','500 40px "Noto Kufi Arabic"','700 40px "Noto Naskh Arabic"','700 40px Amiri','800 40px Cairo']
+    .map(f => document.fonts.load(f, 'عربي'))).then(draw, draw);
+}
 })();
 </script>
